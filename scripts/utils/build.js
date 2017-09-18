@@ -1,11 +1,7 @@
 const spawn = require('./spawnPromise');
 
-module.exports = (dest) => spawn(
-  'node_modules/.bin/webpack',
-  [
-    '--progress',
-    '--display-error-details',
-    '--config=webpack/webpack.config.js',
-  ],
+module.exports = (dest, command = 'dev') => spawn(
+  'npm',
+  ['run', command],
   { cwd: dest, stdio: 'inherit' }
 );

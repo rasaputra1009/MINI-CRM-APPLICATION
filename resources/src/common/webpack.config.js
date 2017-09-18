@@ -1,12 +1,14 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const NormalizeChunksPlugin = require('normalize-chunks-webpack-plugin');
+const NormalizeChunksPlugin = require('./webpack/plugins/NormalizeChunksPlugin');
+
+const buildPath = path.resolve(__dirname, '../../../public/build/global');
 
 module.exports = {
   entry: path.resolve('./app/index.js'),
   output: {
     filename: 'globalStyles.[chunkhash].js',
-    path: path.resolve(__dirname, '../../../public/build/global'),
+    path: buildPath,
   },
   module: {
     rules: [
@@ -23,7 +25,7 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('globalStyles.[chunkhash].css'),
     new NormalizeChunksPlugin({
-      path: __dirname,
+      path: buildPath,
     }),
   ],
 };

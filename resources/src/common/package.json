@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack --progress --display-error-details",
+    "prod": "cross-env NODE_ENV=production webpack --progress --display-error-details --no-colors"
+  },
   "dependencies": {
     "bootstrap": "4.0.0-alpha.6",
     "webpack": "^3.6.0"

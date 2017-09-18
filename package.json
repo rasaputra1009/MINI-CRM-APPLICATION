@@ -1,7 +1,8 @@
 {
   "scripts": {
     "generate:app": "node scripts/generators/app/index.js",
-    "build:all": "node scripts/run/buildAll.js",
+    "build": "node scripts/run/buildAll.js",
+    "build:prod": "node scripts/run/buildAll.js --production",
     "generate": "plop --plopfile scripts/generators/index.js",
     "lint": "eslint --fix .",
     "clean:all": "rimraf public/build/*",
