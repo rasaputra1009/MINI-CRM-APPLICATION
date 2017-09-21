@@ -1,7 +1,9 @@
 const path = require('path');
 const ls = require('./ls');
+const chalk = require('chalk');
 const { assets } = require('./paths');
 const build = require('./build');
+
 const isProduction = process.argv.includes('--production');
 
 function filterApps(files) {
@@ -9,16 +11,29 @@ function filterApps(files) {
 }
 
 function toAbsolutePath(files) {
-  return files.map((file) => path.resolve(assets, file));
+  return files.map((file) => ({ name: file, path: path.resolve(assets, file) }));
 }
 
-function buildModule(files) {
-  return Promise.all(files.map((file) => build(file, isProduction ? 'prod' : 'dev')));
+function reportStatus(results) {
+  results.forEach(({ name, status }) => {
+    if (status === 0) {
+      console.log(`${chalk.green('\u2714')}   ${name} was successfully built`);
+    } else {
+      console.log(`${chalk.red('\u2717')} Error building ${name}`);
+    }
+  });
+}
+
+function buildModules(files) {
+  return Promise.all(files.map(({ name, path: dest }) => new Promise((res) => {
+    build(dest, isProduction ? 'prod' : 'dev').then((status) => res({ status, name, path: dest }));
+  })));
 }
 
 module.exports = function buildAll() {
   return ls(assets)
     .then(filterApps)
     .then(toAbsolutePath)
-    .then(buildModule);
+    .then(buildModules)
+    .then(reportStatus);
 };

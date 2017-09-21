@@ -1,31 +1,40 @@
-const path = require('path');
+const baseConfig = require('../../../webpack');
+const NormalizeChunksPlugin = require('../../../webpack/plugins/NormalizeChunksPlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const NormalizeChunksPlugin = require('./webpack/plugins/NormalizeChunksPlugin');
 
-const buildPath = path.resolve(__dirname, '../../../public/build/global');
+const path = require('path');
 
-module.exports = {
-  entry: path.resolve('./app/index.js'),
-  output: {
-    filename: 'globalStyles.[chunkhash].js',
-    path: buildPath,
-  },
-  module: {
-    rules: [
+
+module.exports = baseConfig({
+  entry: [path.resolve(__dirname, 'app/index.js')],
+  appName: 'global',
+  loaders() {
+    return [
       {
-        test: /\.s[ca]ss$/,
+        test: /\.s[ac]ss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader'],
         }),
       },
-    ],
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
+      },
+    ];
   },
 
-  plugins: [
-    new ExtractTextPlugin('globalStyles.[chunkhash].css'),
-    new NormalizeChunksPlugin({
-      path: buildPath,
-    }),
-  ],
-};
+  plugins({ buildPath }) {
+    return [
+      new ExtractTextPlugin('global.[chunkhash].css'),
+      new NormalizeChunksPlugin({
+        path: buildPath,
+      }),
+    ];
+  },
+  overridePlugins: true,
+  overrideLoaders: true,
+});

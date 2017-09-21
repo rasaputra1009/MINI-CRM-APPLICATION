@@ -6,6 +6,7 @@ const rimraf = require('rimraf');
 const createEslintConfig = require('./createEslintConfig');
 const yarnInstall = require('../../utils/yarnInstall');
 const build = require('../../utils/build');
+const cp = require('../../utils/cp');
 const { assets } = require('../../utils/paths');
 
 const normalizeAppName = (name) => /-app$/.test(name) ? name : `${name}-app`;
@@ -18,14 +19,19 @@ function removeGitDirectory(dest) {
   }));
 }
 
+function createWebpackConfig(dest) {
+  return cp(path.resolve(__dirname, '../stubs/webpack_config.stub'), path.resolve(dest, 'webpack.config.js'));
+}
+
 function createApp(appName, dest) {
-  console.log(`Creating app ${appName} at ${dest}`); // eslint-disable-line no-console
+  console.log(`Creating app ${appName} at ${dest}`);
   return git.Clone(boilerplateUrl, dest)
     .then(() => yarnInstall(dest))
     .then(() => removeGitDirectory(dest))
+    .then(() => createWebpackConfig(dest))
     .then(() => createEslintConfig(dest))
     .then(() => build(dest))
-    .then(() => console.log('All done!')); // eslint-disable-line no-console
+    .then(() => console.log('All done!'));
 }
 
 
@@ -41,4 +47,4 @@ inquirer.prompt([{
     return { appName, dest };
   })
   .then(({ appName, dest }) => createApp(appName, dest))
-  .catch(console.log); // eslint-disable-line no-console
+  .catch(console.log);

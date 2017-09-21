@@ -10,5 +10,5 @@ const publicPath = resolve(root, 'public');
 module.exports = {
   root,
   assets,
-  public: publicPath,
+  publicPath,
 };
