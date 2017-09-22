@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f2120fa77d42a42b4210cdbe1c114e2",
+    "content-hash": "d522f3387d2a266ee664084a815e3713",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -680,6 +680,40 @@
                 "storage"
             ],
             "time": "2017-08-06T17:41:04+00:00"
+        },
+        {
+            "name": "mnet/hmvc",
+            "version": "dev-laravel-55",
+            "source": {
+                "type": "git",
+                "url": "git@tree.mn:cm-admin/module-installer.git",
+                "reference": "0c426c6b90ff29a4ced4682003caad5ec0ad0ac6"
+            },
+            "require": {
+                "laravel/framework": "5.5.*",
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MNet\\Modules\\ModuleServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MNet\\Modules\\": ""
+                }
+            },
+            "authors": [
+                {
+                    "name": "tamil.s",
+                    "email": "tamil.s@directi.com"
+                }
+            ],
+            "description": "CMAdmin Modules",
+            "time": "2017-09-22 13:27:58"
         },
         {
             "name": "monolog/monolog",
@@ -3828,7 +3862,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "mnet/hmvc": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
