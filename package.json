@@ -1,12 +1,16 @@
 {
   "scripts": {
     "generate:app": "node scripts/generators/app/index.js",
-    "build": "node scripts/run/buildAll.js",
-    "build:prod": "node scripts/run/buildAll.js --production",
+    "dev": "build --app-src=resources/src --app-pattern='(^common$)|(-app$)' --build-command='npm  run dev --silent -- --hide-modules'",
+    "load": "load --app-src=resources/src --app-pattern='(^common$)|(-app$)'",
+    "prod": "build --app-src=resources/src --app-pattern='(^common$)|(^-app$)' --build-command='npm run prod --silent'",
     "generate": "plop --plopfile scripts/generators/index.js",
     "lint": "eslint --fix .",
     "clean:all": "rimraf public/build/*",
-    "prebuild": "npm run clean:all"
+    "predev": "npm run clean:all",
+    "preprod": "npm run clean:all",
+    "composer": "composerjs",
+    "setup": "setup --app-src=resources/src --app-pattern='((^common)|(-app))$' --build-command='yarn run dev'"
   },
   "lint-staged": {
     "**/*.js": "lint"
@@ -77,6 +81,7 @@
     "exports-loader": "0.6.4",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "0.11.1",
+    "hb-setup": "git+ssh://git@tree.mn:rohan.ka/hb-setup.git",
     "html-loader": "0.4.5",
     "html-webpack-plugin": "2.29.0",
     "image-webpack-loader": "2.0.0",
