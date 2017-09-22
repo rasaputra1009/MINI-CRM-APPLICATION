@@ -17,17 +17,18 @@ A boilerplate with laravel modules and multiple react-apps
  - Run `php artisan key:generate` to generate the app key for laravel.
  
 ## Directory Structure
-  ### Php
-  For the laravel's directory structure refer to [module installer](http://tree.mn/cm-admin/module-installer)
 
-  ### React
-  All the js/sass source code is located at `resources/src`.  
-  This directory contains multiple app folders,
-  each of which is an independent react app. **Each app directory must end with `-app`**  
-  There is also a `common` directory located at `resources/src` which has modules that can be shared across multiple apps.  
-  Inside each app there is a `components` and a `containers` directory.
-  For more details of the structure of each app refer [here](https://github.com/react-boilerplate/react-boilerplate)
-  
+### Php
+For the laravel's directory structure refer to [module installer](http://tree.mn/cm-admin/module-installer)
+
+### React
+All the js/sass source code is located at `resources/src`.  
+This directory contains multiple app folders,
+each of which is an independent react app. **Each app directory must end with `-app`**  
+There is also a `common` directory located at `resources/src` which has modules that can be shared across multiple apps.  
+Inside each app there is a `components` and a `containers` directory.
+For more details of the structure of each app refer [here](https://github.com/react-boilerplate/react-boilerplate)
+
 
   
 ## Build
