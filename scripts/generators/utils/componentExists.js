@@ -10,8 +10,18 @@ const { assets } = require('../../utils/paths.js');
 
 
 function componentExists(appName, component) {
-  const pageComponents = fs.readdirSync(path.resolve(assets, appName, 'app', 'components'));
-  const pageContainers = fs.readdirSync(path.resolve(assets, appName, 'app', 'containers'));
+  let pageComponents = [];
+  let pageContainers = [];
+  try {
+    pageComponents = fs.readdirSync(path.resolve(assets, appName, 'app', 'components'));
+  } catch (e) {
+    // Do nothing
+  }
+  try {
+    pageContainers = fs.readdirSync(path.resolve(assets, appName, 'app', 'containers'));
+  } catch (e) {
+    // Do nothing
+  }
   const components = pageComponents.concat(pageContainers);
   return components.includes(component);
 }

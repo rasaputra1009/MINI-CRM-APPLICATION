@@ -6,6 +6,7 @@
 
 'use strict';
 
+const mkdirp = require('mkdirp');
 const componentExists = require('../utils/componentExists');
 const apps = require('../../utils/listApps');
 const { assets } = require('../../utils/paths');
@@ -69,6 +70,7 @@ module.exports = {
       abortOnFail: true,
     }];
 
+    mkdirp.sync(`${assets}/${data.appName}/app/components/`);
     // If want Loadable.js to load the component asynchronously
     if (data.wantLoadable) {
       actions.push({

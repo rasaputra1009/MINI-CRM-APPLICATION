@@ -2,6 +2,7 @@
  * Container Generator
  */
 
+const mkdirp = require('mkdirp');
 const componentExists = require('../utils/componentExists');
 const apps = require('../../utils/listApps');
 const { assets } = require('../../utils/paths');
@@ -78,6 +79,9 @@ module.exports = {
       templateFile: './container/test.js.hbs',
       abortOnFail: true,
     }];
+
+    // Create the dir,
+    mkdirp.sync(`${assets}/${data.appName}/app/containers/`);
 
     // If they want actions and a reducer, generate actions.js, constants.js,
     // reducer.js and the corresponding tests for actions and the reducer
