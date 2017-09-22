@@ -40,16 +40,16 @@ A boilerplate with laravel modules and multiple react-apps
 
 ### Root scripts  
   
-  | Name | Description| Args |
-  |------|------------| --------- |
-  | `generate:app` | Creates a new app, loads the yarn module for the app, then builds it (using `dev` build). | |
-  | `generate` | Creates a new React component or container for an app | |
-  | `dev`| Runs the dev build for each app including `common` | Passes args to webpack |
-  | `prod`| Runs the prod build for each app including `common` | Passes args to webpack |
-  | `load` | Runs yarn for every module | |
-  | `composer` | Downloads composer if it doesn't exist and runs `composer install`| Passes args to `composer install` |
-  | `clean:all` | Deletes the build directory (`public/build` by default). Runs before each `dev` and `prod` builds | | |
-  
+| Name | Description| Args |
+|------|------------| --------- |
+| `generate:app` | Creates a new app, loads the yarn module for the app, then builds it (using `dev` build). | |
+| `generate` | Creates a new React component or container for an app | |
+| `dev`| Runs the dev build for each app including `common` | Passes args to webpack |
+| `prod`| Runs the prod build for each app including `common` | Passes args to webpack |
+| `load` | Runs yarn for every module | |
+| `composer` | Downloads composer if it doesn't exist and runs `composer install`| Passes args to `composer install` |
+| `clean:all` | Deletes the build directory (`public/build` by default). Runs before each `dev` and `prod` builds | | |
+
 
 ### App scripts (resources/src/<app>)
 
