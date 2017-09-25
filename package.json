@@ -94,7 +94,6 @@
     "ncp": "^2.0.0",
     "ngrok": "2.2.9",
     "node-plop": "0.7.0",
-    "nodegit": "^0.20.1",
     "normalize-chunks-webpack-plugin": "https://github.com/rohan-ka/normalize-chunks-webpack-plugin.git",
     "null-loader": "0.1.1",
     "offline-plugin": "4.8.1",

@@ -1,4 +1,3 @@
-const git = require('nodegit');
 const path = require('path');
 const inquirer = require('inquirer');
 const rimraf = require('rimraf');
@@ -8,10 +7,15 @@ const yarnInstall = require('../../utils/yarnInstall');
 const build = require('../../utils/build');
 const cp = require('../../utils/cp');
 const { assets } = require('../../utils/paths');
+const spawn = require('../../utils/spawnPromise');
 
 const normalizeAppName = (name) => /-app$/.test(name) ? name : `${name}-app`;
 
 const boilerplateUrl = 'https://github.com/rohan-ka/react-boilerplate.git';
+
+function gitClone(dest) {
+  return spawn('git', ['clone', '--depth=1', boilerplateUrl, dest]);
+}
 
 function removeGitDirectory(dest) {
   return new Promise(((res) => {
@@ -25,7 +29,7 @@ function createWebpackConfig(dest) {
 
 function createApp(appName, dest) {
   console.log(`Creating app ${appName} at ${dest}`);
-  return git.Clone(boilerplateUrl, dest)
+  return gitClone(dest)
     .then(() => yarnInstall(dest))
     .then(() => removeGitDirectory(dest))
     .then(() => createWebpackConfig(dest))
