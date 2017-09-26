@@ -10,10 +10,7 @@ A boilerplate with laravel modules and multiple react-apps
 ## Setup
  - Clone the project
  `git clone --depth=1 git@tree.mn:rohan.ka/laravel-react-boilerplate.git [<dirname>]`
- - Install node modules, run `yarn`
- - Run `composer install` at the root
- - create a `.env` file
- - Run `php artisan key:generate` to generate the app key for laravel.
+ - Run `yarn run setup`
  
 ## Directory Structure
 

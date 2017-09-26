@@ -1,9 +1,11 @@
 {
   "scripts": {
     "generate:app": "node scripts/generators/app/index.js",
-    "dev": "build --app-src=resources/src --app-pattern='(^common$)|(-app$)' --build-command='npm  run dev --silent -- --hide-modules'",
+    "dev": "build --app-src=resources/src --app-pattern='(^common$)|(-app$)' --build-command='npm run dev --silent -- --hide-modules'",
     "load": "load --app-src=resources/src --app-pattern='(^common$)|(-app$)'",
     "prod": "build --app-src=resources/src --app-pattern='(^common$)|(^-app$)' --build-command='npm run prod --silent'",
+    "setup": "setup --app-src=resources/src --app-pattern='(^common$)|(^-app$)' --build-command='npm run dev'",
+    "presetup": "yarn install || npm install",
     "generate": "plop --plopfile scripts/generators/index.js",
     "lint": "eslint --fix .",
     "clean:all": "rimraf public/build/*",
