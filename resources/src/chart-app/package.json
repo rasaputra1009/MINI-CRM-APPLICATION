@@ -17,7 +17,7 @@
     "dev": "cross-env NODE_ENV=development webpack --progress",
     "watch": "cross-env NODE_ENV=development webpack --progress --watch",
     "prod": "cross-env NODE_ENV=production webpack --no-colors --hide-modules",
-    "hot": "webpack-dev-server --inline --hot --progress --color",
+    "hot": "webpack-dev-server --inline --hot --progress --color --hide-modules",
     "predev": "npm run clean",
     "preprod": "npm run clean",
     "prewatch": "npm run clean",

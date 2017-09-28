@@ -17,5 +17,5 @@ function normalize_chunks($filepath)
 
     $normalizeJson = json_decode(file_get_contents(public_path("{$path}/normalizeChunks.json")), true);
 
-    return "${pathPrefix}{$path}/".$normalizeJson[$filename];
+    return "${pathPrefix}{$path}/".array_get($normalizeJson, $filename, $filename);
 }

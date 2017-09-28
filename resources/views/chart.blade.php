@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
+        <link rel="stylesheet" href="{{normalize_chunks('/build/chart-app/main.css')}}"></script>
         {{-- <link rel="stylesheet" href="{{normalize_chunks('/build/global/globalStyles.css')}}"> --}}
     </head>
     <body>
