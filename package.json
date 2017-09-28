@@ -1,10 +1,10 @@
 {
   "scripts": {
     "generate:app": "node scripts/generators/app/index.js",
-    "dev": "build --app-src=resources/src --app-pattern='(^common$)|(-app$)' --build-command='npm run dev --silent -- --hide-modules'",
-    "load": "load --app-src=resources/src --app-pattern='(^common$)|(-app$)'",
-    "prod": "build --app-src=resources/src --app-pattern='(^common$)|(^-app$)' --build-command='npm run prod --silent'",
-    "setup": "setup --app-src=resources/src --app-pattern='(^common$)|(^-app$)' --build-command='npm run dev'",
+    "dev": "build --app-src=resources/src --app-pattern='(?:(^common)|(-app))$' --build-command='npm run dev --silent -- --hide-modules'",
+    "load": "load --app-src=resources/src --app-pattern='(?:(^common)|(-app))$'",
+    "prod": "build --app-src=resources/src --app-pattern='(?:(^common)|(-app))$' --build-command='npm run prod --silent'",
+    "setup": "setup --app-src=resources/src --app-pattern='(?:(^common)|(-app))$' --build-command='npm run dev'",
     "presetup": "yarn install || npm install",
     "generate": "plop --plopfile scripts/generators/index.js",
     "lint": "eslint --fix .",
@@ -84,12 +84,12 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "0.11.1",
     "hb-setup": "git+ssh://git@tree.mn:rohan.ka/hb-setup.git",
-    "html-loader": "0.4.5",
+    "html-loader": "^0.5.1",
     "html-webpack-plugin": "2.29.0",
-    "image-webpack-loader": "2.0.0",
     "imports-loader": "0.7.1",
     "inquirer": "^3.2.3",
     "jest-cli": "20.0.4",
+    "json-loader": "^0.5.7",
     "lint-staged": "^4.2.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
@@ -107,6 +107,7 @@
     "sass-loader": "^6.0.6",
     "shelljs": "0.7.7",
     "style-loader": "0.18.1",
+    "svg-fill-loader": "^0.0.8",
     "url-loader": "0.5.8",
     "webpack": "^3.6.0"
   }

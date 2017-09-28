@@ -1,4 +1,4 @@
 const rm = require('rimraf');
-const { buildPath } = require('../webpack/config');
+const config = require('../webpack.config.js');
 
-rm(buildPath, () => {});
+rm(config.output.path, () => {});

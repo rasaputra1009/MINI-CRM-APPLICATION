@@ -10,12 +10,19 @@ const commonLoaders = [
     },
   },
   {
-    test: /\.(eot|ttf|woff2?)/,
+    test: /\.(eot|ttf|woff2?|jpe?g|png|gif)$/,
     use: 'file-loader',
   },
   {
-    test: /\.svg/,
-    use: 'svg-loader',
+    test: /\.svg$/,
+    use: ['url-loader', 'svg-fill-loader'],
+  },
+  {
+    test: /\.json$/,
+    use: 'json-loader',
+  }, {
+    test: /\.html$/,
+    use: 'html-loader',
   },
 ];
 
