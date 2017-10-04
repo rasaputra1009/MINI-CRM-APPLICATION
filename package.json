@@ -13,7 +13,8 @@
     "preprod": "npm run clean:all",
     "composer": "composerjs",
     "lint:staged": "lint-staged",
-    "remove:app": "node scripts/removeApp.js"
+    "remove:app": "node scripts/removeApp.js",
+    "remove:example": "rimraf resources/src/example-app && rimraf app/Modules/Example"
   },
   "lint-staged": {
     "**/*.js": "lint"

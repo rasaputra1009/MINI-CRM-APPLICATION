@@ -1,0 +1,80 @@
+{
+  "name": "react-boilerplate",
+  "version": "3.4.0",
+  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/react-boilerplate/react-boilerplate.git"
+  },
+  "engines": {
+    "npm": ">=3",
+    "node": ">=5"
+  },
+  "scripts": {
+    "clean": "node scripts/clean.js",
+    "dev": "cross-env NODE_ENV=development webpack --progress",
+    "watch": "cross-env NODE_ENV=development webpack --progress --watch",
+    "prod": "cross-env NODE_ENV=production webpack --no-colors --hide-modules",
+    "hot": "webpack-dev-server --inline --hot --progress --color",
+    "predev": "npm run clean",
+    "preprod": "npm run clean",
+    "prewatch": "npm run clean",
+    "prehot": "npm run clean",
+    "test": "jest"
+  },
+  "author": "Max Stoiber",
+  "license": "MIT",
+  "dllPlugin": {
+    "path": "node_modules/react-boilerplate-dlls",
+    "exclude": [
+      "chalk",
+      "compression",
+      "cross-env",
+      "express",
+      "ip",
+      "minimist",
+      "sanitize.css"
+    ],
+    "include": [
+      "core-js",
+      "lodash",
+      "eventsource-polyfill"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "app/**/*.{js,jsx}",
+      "!app/**/*.test.{js,jsx}",
+      "!app/*/RbGenerated*/*.{js,jsx}",
+      "!app/app.js",
+      "!app/global-styles.js",
+      "!app/*/*/Loadable.{js,jsx}"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 98,
+        "branches": 91,
+        "functions": 98,
+        "lines": 98
+      }
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "app"
+    ],
+    "moduleNameMapper": {
+      ".*\\.(css|less|styl|scss|sass)$": "<rootDir>/internals/mocks/cssModule.js",
+      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
+    },
+    "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
+    "testRegex": "tests/.*\\.test\\.js$"
+  },
+  "dependencies": {
+    "cross-env": "5.0.0"
+  },
+  "devDependencies": {
+    "jest": "^21.1.0",
+    "webpack": "3.5.5",
+    "webpack-dev-server": "^2.8.2"
+  }
+}
