@@ -1,13 +1,14 @@
 const path = require('path');
 const inquirer = require('inquirer');
 const rimraf = require('rimraf');
+const fs = require('fs');
 
 const createEslintConfig = require('./createEslintConfig');
 const questions = require('./questions');
 const yarnInstall = require('../../utils/yarnInstall');
 const build = require('../../utils/build');
 const cp = require('../../utils/cp');
-const { assets } = require('../../utils/paths');
+const { assets, publicPath, defaultBuildPath, phpModulesPath } = require('../../utils/paths');
 const spawn = require('../../utils/spawnPromise');
 
 const normalizeAppName = (name) => /-app$/.test(name) ? name : `${name}-app`;
@@ -32,6 +33,29 @@ function createPhpModule(name) {
   return spawn('php', ['artisan', 'module:make', name], { stdio: 'inherit' });
 }
 
+function addScriptTagInView(phpModuleName, appName) {
+  const scriptTag = `<script src="{{normalize_chunks('/${path.relative(publicPath, defaultBuildPath)}/${appName}-app/main.js')}}"></script>`;
+  const rootTag = '<div id=\'app\'></div>';
+  const bladeFile = path.resolve(phpModulesPath, phpModuleName, 'Views/index.blade.php');
+
+  fs.readFile(bladeFile, (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const lines = data.toString().split('\n');
+    const closingBodyTagIndex = lines.findIndex((line) => /<\/body>/.test(line));
+    const linesWithScriptTag = [
+      ...lines.slice(0, closingBodyTagIndex),
+      rootTag,
+      scriptTag,
+      ...lines.slice(closingBodyTagIndex),
+    ];
+
+    fs.writeFile(bladeFile, linesWithScriptTag.join('\n'), (error) => error && console.error(error));
+  });
+}
+
 function createApp({ appName, dest, wantPhpModule, phpModuleName }) {
   console.log(`Creating app ${appName} at ${dest}`);
   return gitClone(dest)
@@ -40,7 +64,8 @@ function createApp({ appName, dest, wantPhpModule, phpModuleName }) {
     .then(() => createWebpackConfig(dest))
     .then(() => createEslintConfig(dest))
     .then(() => build(dest))
-    .then(() => wantPhpModule ? createPhpModule(phpModuleName) : null)
+    .then(() => wantPhpModule && createPhpModule(phpModuleName))
+    .then(() => wantPhpModule && addScriptTagInView(phpModuleName, appName))
     .then(() => console.log('All done!'));
 }
 

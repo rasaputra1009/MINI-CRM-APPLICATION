@@ -12,7 +12,8 @@
     "predev": "npm run clean:all",
     "preprod": "npm run clean:all",
     "composer": "composerjs",
-    "lint:staged": "lint-staged"
+    "lint:staged": "lint-staged",
+    "remove:app": "node scripts/removeApp.js"
   },
   "lint-staged": {
     "**/*.js": "lint"

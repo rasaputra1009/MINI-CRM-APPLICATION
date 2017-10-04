@@ -1,3 +1,5 @@
+const camelCase = require('../../utils/camelCase');
+
 module.exports = [
   {
     name: 'appName',
@@ -17,9 +19,7 @@ module.exports = [
       return wantPhpModule;
     },
     default({ appName }) {
-      return appName.split(/(?:-|\s|_)+/)
-        .map((chunk) => `${chunk[0].toUpperCase()}${chunk.slice(1)}`)
-        .join('');
+      return camelCase(appName.replace(/-app$/, ''));
     },
   },
 ];
