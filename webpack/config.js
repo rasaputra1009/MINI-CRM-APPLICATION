@@ -5,7 +5,7 @@ const { assets, defaultBuildPath } = require('../scripts/utils/paths');
 const args = minimist(process.argv.slice(2));
 
 const appName = path.basename(process.cwd());
-const commonsPath = path.resolve(assets, 'common/app');
+const commonsPath = path.resolve(assets, 'commons/app');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const isHot = args.hot || false;
