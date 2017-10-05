@@ -8,6 +8,11 @@ A boilerplate with laravel modules and multiple react-apps
  - yarn
  
 ## Setup
+
+### Using generator (Recommended)
+ Refer to [hb-make](http://tree.mn/rohan.ka/hb-make)
+
+### Manually
  - Clone the project
  `git clone --depth=1 git@tree.mn:rohan.ka/laravel-react-boilerplate.git [<dirname>]`
  - Run `yarn run setup`
