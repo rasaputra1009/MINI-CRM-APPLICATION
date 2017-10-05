@@ -4,6 +4,7 @@ const rimraf = require('rimraf');
 const fs = require('fs');
 
 const createEslintConfig = require('./createEslintConfig');
+const createAppJsFile = require('./createAppJsFile');
 const questions = require('./questions');
 const yarnInstall = require('../../utils/yarnInstall');
 const build = require('../../utils/build');
@@ -59,10 +60,11 @@ function addScriptTagInView(phpModuleName, appName) {
 function createApp({ appName, dest, wantPhpModule, phpModuleName }) {
   console.log(`Creating app ${appName} at ${dest}`);
   return gitClone(dest)
-    .then(() => yarnInstall(dest))
     .then(() => removeGitDirectory(dest))
+    .then(() => createAppJsFile({ appName, dest }))
     .then(() => createWebpackConfig(dest))
     .then(() => createEslintConfig(dest))
+    .then(() => yarnInstall(dest))
     .then(() => build(dest))
     .then(() => wantPhpModule && createPhpModule(phpModuleName))
     .then(() => wantPhpModule && addScriptTagInView(phpModuleName, appName))
