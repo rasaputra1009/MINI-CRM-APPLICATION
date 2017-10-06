@@ -1,74 +1,41 @@
 const path = require('path');
 const inquirer = require('inquirer');
 const rimraf = require('rimraf');
-const fs = require('fs');
+const chalk = require('chalk');
+const { build, load } = require('hb-setup');
+const { promisify } = require('util');
 
-const createEslintConfig = require('./createEslintConfig');
 const createAppJsFile = require('./createAppJsFile');
 const questions = require('./questions');
-const yarnInstall = require('../../utils/yarnInstall');
-const build = require('../../utils/build');
-const cp = require('../../utils/cp');
-const { assets, publicPath, defaultBuildPath, phpModulesPath } = require('../../utils/paths');
+const normalizeAppName = require('./normalizeAppName');
+const copyStub = require('./copyStub');
+const addScriptTagInBlade = require('./addScriptTagInBlade');
+
+
+const { assets } = require('../../utils/paths');
 const spawn = require('../../utils/spawnPromise');
 
-const normalizeAppName = (name) => /-app$/.test(name) ? name : `${name}-app`;
 
 const boilerplateUrl = 'https://github.com/rohan-ka/react-boilerplate.git';
 
-function gitClone(dest) {
-  return spawn('git', ['clone', '--depth=1', boilerplateUrl, dest]);
-}
-
-function removeGitDirectory(dest) {
-  return new Promise(((res) => {
-    rimraf(path.join(dest, '.git'), res);
-  }));
-}
-
-function createWebpackConfig(dest) {
-  return cp(path.resolve(__dirname, '../stubs/webpack_config.stub'), path.resolve(dest, 'webpack.config.js'));
-}
-
-function createPhpModule(name) {
-  return spawn('php', ['artisan', 'module:make', name], { stdio: 'inherit' });
-}
-
-function addScriptTagInView(phpModuleName, appName) {
-  const scriptTag = `<script src="{{normalize_chunks('/${path.relative(publicPath, defaultBuildPath)}/${appName}-app/main.js')}}"></script>`;
-  const rootTag = '<div id=\'app\'></div>';
-  const bladeFile = path.resolve(phpModulesPath, phpModuleName, 'Views/index.blade.php');
-
-  fs.readFile(bladeFile, (err, data) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    const lines = data.toString().split('\n');
-    const closingBodyTagIndex = lines.findIndex((line) => /<\/body>/.test(line));
-    const linesWithScriptTag = [
-      ...lines.slice(0, closingBodyTagIndex),
-      rootTag,
-      scriptTag,
-      ...lines.slice(closingBodyTagIndex),
-    ];
-
-    fs.writeFile(bladeFile, linesWithScriptTag.join('\n'), (error) => error && console.error(error));
-  });
-}
+const gitClone = (dest) => spawn('git', ['clone', '--depth=1', boilerplateUrl, dest]);
+const removeGitDirectory = (dest) => promisify(rimraf)(path.join(dest, '.git'));
+const createPhpModule = (name) => spawn('php', ['artisan', 'module:make', name], { stdio: 'inherit' });
 
 function createApp({ appName, dest, wantPhpModule, phpModuleName }) {
-  console.log(`Creating app ${appName} at ${dest}`);
+  console.log(chalk.cyan(`Creating app ${chalk.green(appName)} at ${chalk.green(dest)}`));
+
   return gitClone(dest)
     .then(() => removeGitDirectory(dest))
     .then(() => createAppJsFile({ appName, dest }))
-    .then(() => createWebpackConfig(dest))
-    .then(() => createEslintConfig(dest))
-    .then(() => yarnInstall(dest))
-    .then(() => build(dest))
+    .then(() => copyStub({ stub: 'webpack_config.stub', path: dest, name: 'webpack.config.js' }))
+    .then(() => copyStub({ stub: 'eslint.stub', path: dest, name: '.eslintrc.js' }))
+    .then(() => load({ name: dest }))
+    .then(() => build({ command: 'yarn dev', name: dest }))
     .then(() => wantPhpModule && createPhpModule(phpModuleName))
-    .then(() => wantPhpModule && addScriptTagInView(phpModuleName, appName))
-    .then(() => console.log('All done!'));
+    .then(() => wantPhpModule && addScriptTagInBlade(phpModuleName, appName))
+    .then(() => console.log('All done!'))
+    .catch((error) => console.log(error) || console.error(chalk.red(error.message)));
 }
 
 inquirer.prompt(questions)
@@ -76,5 +43,4 @@ inquirer.prompt(questions)
     const dest = path.resolve(assets, normalizeAppName(appName));
     return { appName, dest, ...rest };
   })
-  .then(createApp)
-  .catch(console.log);
+  .then(createApp);

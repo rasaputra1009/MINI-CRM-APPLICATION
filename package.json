@@ -1,10 +1,19 @@
 {
+  "name": "laravel-react-boilerplate",
+  "license": "MIT",
+  "author": "rohan.ka",
+  "version": "1.0.0",
+  "repository" : {
+    "type" : "git",
+    "url" : "http://tree.mn/rohan.ka/laravel-react-boilerplate.git"
+  },
   "scripts": {
     "generate:app": "node scripts/generators/app/index.js",
-    "dev": "build --app-src=resources/src --app-pattern='(?:(^common)|(-app))$' --build-command='npm run dev --silent -- --hide-modules'",
-    "load": "load --app-src=resources/src --app-pattern='(?:(^common)|(-app))$'",
-    "prod": "build --app-src=resources/src --app-pattern='(?:(^common)|(-app))$' --build-command='npm run prod --silent'",
-    "setup": "setup --app-src=resources/src --app-pattern='(?:(^common)|(-app))$' --build-command='npm run dev'",
+    "dev": "build --app-src=resources/src --app-pattern='(^commons$)|(-app$)' --build-command='npm run dev --silent -- --hide-modules'",
+    "load": "load --app-src=resources/src --app-pattern='(^commons$)|(-app$)'",
+    "prod": "build --app-src=resources/src --app-pattern='(^commons$)|(-app$)' --build-command='npm run prod --silent'",
+    "test": "build --app-src=resources/src --app-pattern='(^commons$)|(-app$)' --build-command='npm run test --silent'",
+    "setup": "setup --app-src=resources/src --app-pattern='(^commons$)|(-app$)' --build-command='npm run dev'",
     "presetup": "yarn install || npm install",
     "generate": "plop --plopfile scripts/generators/index.js",
     "lint": "eslint --fix .",
