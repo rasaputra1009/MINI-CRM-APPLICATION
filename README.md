@@ -9,8 +9,8 @@ A boilerplate with laravel modules and multiple react-apps
  
 ## Setup
 
-### Using generator (Recommended)
- Refer to [hb-make](http://tree.mn/rohan.ka/hb-make)
+### Using Forge generator (Recommended)
+ Refer to [Forge](http://tree.mn/rohan.ka/forge)
 
 ### Manually
  - Clone the project
@@ -26,7 +26,7 @@ For the laravel's directory structure refer to [module installer](http://tree.mn
 All the js/sass source code is located at `resources/src`.  
 This directory contains multiple app folders,
 each of which is an independent react app. **Each app directory must end with `-app`**  
-There is also a `common` directory located at `resources/src` which has modules that can be shared across multiple apps.  
+There is also a `commons` directory located at `resources/src` which has modules that can be shared across multiple apps.  
 Inside each app there is a `components` and a `containers` directory.
 For more details of the structure of each app refer [here](https://github.com/react-boilerplate/react-boilerplate)
 
@@ -44,13 +44,14 @@ For more details of the structure of each app refer [here](https://github.com/re
   
 | Name | Description| Args |
 |------|------------| --------- |
-| `generate:app` | Creates a new app, loads the yarn module for the app, then builds it (using `dev` build). | |
+| `generate:app` | Creates a new app, then builds it (using `dev` build). | |
 | `generate` | Creates a new React component or container for an app | |
-| `dev`| Runs the dev build for each app including `common` | Passes args to webpack |
-| `prod`| Runs the prod build for each app including `common` | Passes args to webpack |
+| `dev`| Runs the dev build for each app including `commons` | Passes args to webpack |
+| `prod`| Runs the prod build for each app including `commons` | Passes args to webpack |
 | `load` | Runs yarn for every module | |
 | `composer` | Downloads composer if it doesn't exist and runs `composer install`| Passes args to `composer install` |
-| `clean:all` | Deletes the build directory (`public/build` by default). Runs before each `dev` and `prod` builds | | |
+| `clean:all` | Deletes the build directory (`public/build` by default). Runs before each `dev` and `prod` builds | |
+| `setup` | Runs composer, creates .env file from .env.example and generates a new app key| | |
 
 
 ### App scripts (resources/src/<app>)
