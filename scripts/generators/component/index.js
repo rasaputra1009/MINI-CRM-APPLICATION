@@ -18,7 +18,7 @@ module.exports = {
     type: 'list',
     name: 'appName',
     message: 'Select the app for which you want to generate',
-    default: 'common',
+    default: 'commons',
     choices: () => apps,
   }, {
     type: 'list',

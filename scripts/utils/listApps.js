@@ -3,10 +3,8 @@ const { assets } = require('./paths');
 
 
 const files = fs.readdirSync(assets);
-let apps = files.filter((file) => /-app$/.test(file));
+const isApp = (file) => /-app$/.test(file);
 
-if (files.includes('common')) {
-  apps = ['common'].concat(apps);
-}
+const apps = ['commons'].concat(files.filter(isApp));
 
 module.exports = apps;

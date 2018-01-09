@@ -19,7 +19,7 @@ inquirer.prompt([
     name: 'component',
     message: 'Select which app to remove',
     type: 'list',
-    choices: apps.filter((app) => app !== 'common'),
+    choices: apps.filter((app) => app !== 'commons'),
   },
   {
     type: 'confirm',
