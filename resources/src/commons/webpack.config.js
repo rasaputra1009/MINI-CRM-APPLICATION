@@ -1,9 +1,8 @@
 const baseConfig = require('../../../webpack');
 const NormalizeChunksPlugin = require('../../../webpack/plugins/NormalizeChunksPlugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const path = require('path');
-
 
 module.exports = baseConfig({
   entry: [path.resolve(__dirname, 'app/index.js')],
@@ -12,24 +11,20 @@ module.exports = baseConfig({
     return [
       {
         test: /\.s[ac]ss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader'],
-        }),
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader',
-        }),
+        use: [MiniCssExtractPlugin, 'css-loader'],
       },
     ];
   },
 
   plugins({ buildPath }) {
     return [
-      new ExtractTextPlugin('global.[chunkhash].css'),
+      new MiniCssExtractPlugin({
+        filename: '[name].css',
+      }),
       new NormalizeChunksPlugin({
         path: buildPath,
       }),

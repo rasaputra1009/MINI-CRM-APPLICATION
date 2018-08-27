@@ -1,11 +1,9 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const NormalizeChunksPlugin = require('./plugins/NormalizeChunksPlugin');
 const HotManifestPlugin = require('./plugins/HotManifestPlugin');
 
 module.exports = ({ buildPath, isProduction, isHot, port }, otherPlugins = []) => {
   const plugins = [
-    new webpack.NamedModulesPlugin(),
     new NormalizeChunksPlugin({
       path: buildPath,
     }),
@@ -16,8 +14,10 @@ module.exports = ({ buildPath, isProduction, isHot, port }, otherPlugins = []) =
   if (isProduction) {
     return [
       ...plugins,
-      new webpack.optimize.UglifyJsPlugin(),
-      new ExtractTextPlugin('main.[chunkhash].css'),
+      new MiniCssExtractPlugin({
+        filename: '[name].css',
+        chunkFilename: '[id].css',
+      }),
     ];
   }
 

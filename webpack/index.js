@@ -16,9 +16,11 @@ function baseConifg(options = {}) {
     plugins: optPlugins = () => [],
     overrideLoaders = false,
     overridePlugins = false,
+    optimization,
   } = options;
 
   return {
+    mode: isProduction ? 'production' : 'development',
     entry: [
       'react-hot-loader/patch',
       ...entry,
@@ -57,6 +59,12 @@ function baseConifg(options = {}) {
       },
     },
     target: 'web',
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
+      ...optimization,
+    },
     devtool: isProduction ? undefined : 'inline-source-map',
     ...optionsConfig,
   };

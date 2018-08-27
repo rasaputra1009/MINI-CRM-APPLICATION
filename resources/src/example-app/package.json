@@ -12,10 +12,10 @@
   },
   "scripts": {
     "clean": "node scripts/clean.js",
-    "dev": "cross-env NODE_ENV=development webpack --progress",
-    "watch": "cross-env NODE_ENV=development webpack --progress --watch",
-    "prod": "cross-env NODE_ENV=production webpack --no-colors --hide-modules",
-    "hot": "webpack-dev-server --inline --hot --progress --color",
+    "dev": "../../../node_modules/.bin/cross-env NODE_ENV=development ../../../node_modules/.bin/webpack --progress",
+    "watch": "../../../node_modules/.bin/cross-env NODE_ENV=development ../../../node_modules/.bin/webpack --progress --watch",
+    "prod": "../../../node_modules/.bin/cross-env NODE_ENV=production ../../../node_modules/.bin/webpack --no-colors --hide-modules",
+    "hot": "../../../node_modules/.bin/webpack-dev-server --inline --hot --progress --color",
     "predev": "npm run clean",
     "preprod": "npm run clean",
     "prewatch": "npm run clean",
@@ -24,23 +24,6 @@
   },
   "author": "Max Stoiber",
   "license": "MIT",
-  "dllPlugin": {
-    "path": "node_modules/react-boilerplate-dlls",
-    "exclude": [
-      "chalk",
-      "compression",
-      "cross-env",
-      "express",
-      "ip",
-      "minimist",
-      "sanitize.css"
-    ],
-    "include": [
-      "core-js",
-      "lodash",
-      "eventsource-polyfill"
-    ]
-  },
   "jest": {
     "collectCoverageFrom": [
       "app/**/*.{js,jsx}",
@@ -68,13 +51,5 @@
     },
     "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
     "testRegex": "tests/.*\\.test\\.js$"
-  },
-  "dependencies": {
-    "cross-env": "5.0.0"
-  },
-  "devDependencies": {
-    "jest": "^21.1.0",
-    "webpack": "3.5.5",
-    "webpack-dev-server": "^2.8.2"
   }
 }

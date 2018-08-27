@@ -1,4 +1,4 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 const commonLoaders = [
@@ -20,9 +20,6 @@ const commonLoaders = [
   {
     test: /\.json$/,
     use: 'json-loader',
-  }, {
-    test: /\.html$/,
-    use: 'html-loader',
   },
 ];
 
@@ -42,17 +39,11 @@ module.exports = ({ isProduction }, otherLoaders = []) => {
     styleLoaders = [
       {
         test: /\.s[ca]ss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader', 'sass-loader'],
-        }),
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader'],
-        }),
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       },
     ];
   }

@@ -4,14 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack --progress --display-error-details",
-    "prod": "cross-env NODE_ENV=production webpack --display-error-details --no-colors --hide-modules",
-    "hot": "cross-env NODE_ENV=development webpack-dev-server --progress --hot --inline"
+    "dev": "../../../node_modules/.bin/cross-env NODE_ENV=development ../../../node_modules/.bin/webpack --progress --display-error-details",
+    "prod": "../../../node_modules/.bin/cross-env NODE_ENV=production ../../../node_modules/.bin/webpack --display-error-details --no-colors --hide-modules",
+    "hot": "../../../node_modules/.bin/cross-env NODE_ENV=development ../../../node_modules/.bin/webpack-dev-server --progress --hot --inline"
   },
   "dependencies": {},
   "devDependencies": {
-    "cross-env": "^5.0.5",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.8.2"
   }
 }
