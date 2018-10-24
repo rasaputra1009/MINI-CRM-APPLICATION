@@ -1,9 +1,12 @@
-<?php namespace Modules\Test\Services;
+<?php
+
+namespace Modules\Test\Services;
 
 use App\Data\CMRepository;
 use Modules\Test\Repository\TestRepository;
 
-class TestService {
+class TestService
+{
     private $repository = null;
 
     /**

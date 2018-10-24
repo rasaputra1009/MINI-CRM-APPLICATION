@@ -1,8 +1,11 @@
-<?php namespace Modules\Test\Repository;
+<?php
+
+namespace Modules\Test\Repository;
 
 use App\Data\CMRepository;
 
-class TestRepository implements CMRepository {
+class TestRepository implements CMRepository
+{
     /**
      * @param array $settings
      * @return bool

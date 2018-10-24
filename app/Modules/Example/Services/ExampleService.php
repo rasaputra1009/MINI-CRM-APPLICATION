@@ -1,9 +1,12 @@
-<?php namespace Modules\Example\Services;
+<?php
+
+namespace Modules\Example\Services;
 
 use App\Data\CMRepository;
 use Modules\Example\Repository\ExampleRepository;
 
-class ExampleService {
+class ExampleService
+{
     private $repository = null;
 
     /**

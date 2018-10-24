@@ -17,6 +17,7 @@
     "presetup": "yarn install || npm install",
     "generate": "plop --plopfile scripts/generators/index.js",
     "lint": "eslint --fix",
+    "lint:php": "./vendor/bin/php-cs-fixer --config='.php_cs' fix",
     "clean:all": "rimraf public/build/*",
     "predev": "npm run clean:all",
     "preprod": "npm run clean:all",
@@ -26,7 +27,8 @@
     "remove:example": "rimraf resources/src/example-app && rimraf app/Modules/Example"
   },
   "lint-staged": {
-    "**/*.js": "lint"
+    "**/*.js": ["lint", "git add"],
+    "**/*.php": ["lint:php", "git add"]
   },
   "pre-commit": [
     "lint:staged"
