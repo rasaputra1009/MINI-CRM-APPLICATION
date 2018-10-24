@@ -4,7 +4,13 @@ const { publicPath, defaultBuildPath, phpModulesPath } = require('../../utils/pa
 
 
 module.exports = function addScriptTagInBlade(phpModuleName, appName) {
-  const scriptTag = `<script src="{{normalize_chunks('/${path.relative(publicPath, defaultBuildPath)}/${appName}-app/main.js')}}"></script>`;
+  if (!/-app$/.test(appName)) {
+    // eslint-disable-next-line no-param-reassign
+    appName = `${appName}-app`;
+  }
+  const vendorTag = `<script src="{{normalize_chunks('/${path.relative(publicPath, defaultBuildPath)}/${appName}/vendors~main.chunk.js')}}"></script>`;
+
+  const scriptTag = `<script src="{{normalize_chunks('/${path.relative(publicPath, defaultBuildPath)}/${appName}/main.js')}}"></script>`;
   const rootTag = '<div id=\'app\'></div>';
   const bladeFile = path.resolve(phpModulesPath, phpModuleName, 'Views/index.blade.php');
 
@@ -18,6 +24,7 @@ module.exports = function addScriptTagInBlade(phpModuleName, appName) {
     const linesWithScriptTag = [
       ...lines.slice(0, closingBodyTagIndex),
       rootTag,
+      vendorTag,
       scriptTag,
       ...lines.slice(closingBodyTagIndex),
     ];
