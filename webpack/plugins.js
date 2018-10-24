@@ -1,6 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const NormalizeChunksPlugin = require('./plugins/NormalizeChunksPlugin');
-const HotManifestPlugin = require('./plugins/HotManifestPlugin');
+const NormalizeChunksPlugin = require('normalize-chunks-webpack-plugin');
+const HotManifestPlugin = require('hot-manifest-webpack-plugin');
 
 module.exports = ({ buildPath, isProduction, isHot, port }, otherPlugins = []) => {
   const plugins = [

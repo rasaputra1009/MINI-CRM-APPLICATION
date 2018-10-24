@@ -93,6 +93,7 @@
     "exports-loader": "0.6.4",
     "file-loader": "^2.0.0",
     "hb-setup": "git+ssh://git@tree.mn:rohan.ka/hb-setup.git",
+    "hot-manifest-webpack-plugin": "https://github.com/rohan-ka/hot-manifest-webpack-plugin.git",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "2.30.1",
     "imports-loader": "0.7.1",
