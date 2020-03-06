@@ -15,8 +15,8 @@ module.exports = ({ buildPath, isProduction, isHot, port }, otherPlugins = []) =
     return [
       ...plugins,
       new MiniCssExtractPlugin({
-        filename: '[name].css',
-        chunkFilename: '[id].css',
+        filename: '[name].[hash].css',
+        chunkFilename: '[name].[hash].css',
       }),
     ];
   }
