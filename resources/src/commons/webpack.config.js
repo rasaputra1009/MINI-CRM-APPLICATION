@@ -1,5 +1,5 @@
 const baseConfig = require('../../../webpack');
-const NormalizeChunksPlugin = require('../../../webpack/plugins/NormalizeChunksPlugin');
+const NormalizeChunksPlugin = require('normalize-chunks-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const path = require('path');

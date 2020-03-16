@@ -2,17 +2,19 @@
  * Combine all reducers in this file and export the combined reducers.
  */
 
-import { combineReducers } from 'redux-immutable';
-import { connectRouter } from 'connected-react-router/immutable';
-import { isEmpty, identity } from 'ramda';
+import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
+
+import history from 'utils/history';
 
 /**
- * Creates the main reducer with the dynamically injected ones
+ * Merges the main reducer with the router state and dynamically injected reducers
  */
-export default function createReducer(history, injectedReducers = {}) {
-  const rootReducers = isEmpty(injectedReducers) ? identity : combineReducers({
+export default function createReducer(injectedReducers = {}) {
+  const rootReducer = combineReducers({
+    router: connectRouter(history),
     ...injectedReducers,
   });
 
-  return connectRouter(history)(rootReducers);
+  return rootReducer;
 }
