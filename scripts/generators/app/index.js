@@ -18,11 +18,13 @@ const spawn = require('../../utils/spawnPromise');
 
 const boilerplateUrl = 'https://github.com/rohan-ka/react-boilerplate.git';
 
-const gitClone = (dest) => spawn('git', ['clone', '--depth=1', boilerplateUrl, dest]);
+const gitClone = (dest) => spawn('git', ['clone', '--depth=1', '--branch react-v16.13.0', boilerplateUrl, dest]);
 const removeGitDirectory = (dest) => promisify(rimraf)(path.join(dest, '.git'));
 const createPhpModule = (name) => spawn('php', ['artisan', 'module:make', name], { stdio: 'inherit' });
 
-function createApp({ appName, dest, wantPhpModule, phpModuleName }) {
+function createApp({
+  appName, dest, wantPhpModule, phpModuleName,
+}) {
   console.log(chalk.cyan(`Creating app ${chalk.green(appName)} at ${chalk.green(dest)}`));
 
   return gitClone(dest)

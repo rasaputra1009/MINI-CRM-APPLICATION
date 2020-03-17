@@ -6,8 +6,12 @@ const getConfig = require('./config');
 
 
 function baseConifg(options = {}) {
-  const { appName, commonsPath, buildPath, isProduction, isHot, port } = getConfig(options);
-  const currentConfig = { buildPath, isProduction, isHot, port };
+  const {
+    appName, commonsPath, buildPath, isProduction, isHot, port,
+  } = getConfig(options);
+  const currentConfig = {
+    buildPath, isProduction, isHot, port,
+  };
   const { config: optionsConfig = {} } = options;
   const defaultEntry = path.resolve(process.cwd(), 'app/app.js');
   const {

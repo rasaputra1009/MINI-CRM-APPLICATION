@@ -2,112 +2,85 @@
  * Container Generator
  */
 
-const mkdirp = require('mkdirp');
 const componentExists = require('../utils/componentExists');
 const apps = require('../../utils/listApps');
 const { assets } = require('../../utils/paths');
 
 module.exports = {
   description: 'Add a container component',
-  prompts: [{
-    type: 'list',
-    name: 'appName',
-    message: 'Select the app for which you want to generate',
-    default: 'commons',
-    choices: () => apps,
-  }, {
-    type: 'list',
-    name: 'type',
-    message: 'Select the base component type:',
-    default: 'Stateless Function',
-    choices: () => ['Stateless Function', 'React.PureComponent', 'React.Component'],
-  }, {
-    type: 'input',
-    name: 'name',
-    message: 'What should it be called?',
-    default: 'Form',
-    validate: (value, { appName }) => {
-      if ((/.+/).test(value)) {
-        return componentExists(appName, value) ? 'A component or container with this name already exists' : true;
-      }
-
-      return 'The name is required';
-    },
-  }, {
-    type: 'confirm',
-    name: 'wantHeaders',
-    default: false,
-    message: 'Do you want headers?',
-  }, {
-    type: 'confirm',
-    name: 'wantActionsAndReducer',
-    default: true,
-    message: 'Do you want an actions/constants/selectors/reducer tuple for this container?',
-  }, {
-    type: 'confirm',
-    name: 'wantSaga',
-    default: true,
-    message: 'Do you want sagas for asynchronous flows? (e.g. fetching data)',
-  }, {
-    type: 'confirm',
-    name: 'wantLoadable',
-    default: true,
-    message: 'Do you want to load resources asynchronously?',
-  }],
-  actions: (data) => {
-    // Generate index.js and index.test.js
-    var componentTemplate; // eslint-disable-line no-var
-
-    switch (data.type) {
-      case 'Stateless Function': {
-        componentTemplate = './container/stateless.js.hbs';
-        break;
-      }
-      default: {
-        componentTemplate = './container/class.js.hbs';
-      }
-    }
-
-    const actions = [{
-      type: 'add',
-      path: `${assets}/${data.appName}/app/containers/{{properCase name}}/index.js`,
-      templateFile: componentTemplate,
-      abortOnFail: true,
+  prompts: [
+    {
+      type: 'list',
+      name: 'appName',
+      message: 'Select the app for which you want to generate',
+      default: 'commons',
+      choices: () => apps,
     }, {
-      type: 'add',
-      path: `${assets}/${data.appName}/app/containers/{{properCase name}}/tests/index.test.js`,
-      templateFile: './container/test.js.hbs',
-      abortOnFail: true,
-    }];
+      type: 'input',
+      name: 'name',
+      message: 'What should it be called?',
+      default: 'Form',
+      validate: (value) => {
+        if (/.+/.test(value)) {
+          return componentExists(value)
+            ? 'A component or container with this name already exists'
+            : true;
+        }
 
-    // Create the dir,
-    mkdirp.sync(`${assets}/${data.appName}/app/containers/`);
+        return 'The name is required';
+      },
+    },
+    {
+      type: 'confirm',
+      name: 'memo',
+      default: false,
+      message: 'Do you want to wrap your component in React.memo?',
+    },
+    {
+      type: 'confirm',
+      name: 'wantHeaders',
+      default: false,
+      message: 'Do you want headers?',
+    },
+    {
+      type: 'confirm',
+      name: 'wantActionsAndReducer',
+      default: true,
+      message:
+        'Do you want an actions/constants/selectors/reducer tuple for this container?',
+    },
+    {
+      type: 'confirm',
+      name: 'wantSaga',
+      default: true,
+      message: 'Do you want sagas for asynchronous flows? (e.g. fetching data)',
+    },
+    {
+      type: 'confirm',
+      name: 'wantLoadable',
+      default: true,
+      message: 'Do you want to load resources asynchronously?',
+    },
+  ],
+  actions: (data) => {
+    const actions = [
+      {
+        type: 'add',
+        path: `${assets}/${data.appName}/app/containers/{{properCase name}}/index.js`,
+        templateFile: './container/index.js.hbs',
+        abortOnFail: true,
+      },
+      {
+        type: 'add',
+        path: `${assets}/${data.appName}/app/containers/{{properCase name}}/tests/index.test.js`,
+        templateFile: './container/test.js.hbs',
+        abortOnFail: true,
+      },
+    ];
 
-    // If they want actions and a reducer, generate actions.js, constants.js,
-    // reducer.js and the corresponding tests for actions and the reducer
+    // If they want actions and a reducer, generate the slice,
+    // the selectors and the corresponding tests
     if (data.wantActionsAndReducer) {
-      // Actions
-      actions.push({
-        type: 'add',
-        path: `${assets}/${data.appName}/app/containers/{{properCase name}}/actions.js`,
-        templateFile: './container/actions.js.hbs',
-        abortOnFail: true,
-      });
-      actions.push({
-        type: 'add',
-        path: `${assets}/${data.appName}/app/containers/{{properCase name}}/tests/actions.test.js`,
-        templateFile: './container/actions.test.js.hbs',
-        abortOnFail: true,
-      });
-
-      // Constants
-      actions.push({
-        type: 'add',
-        path: `${assets}/${data.appName}/app/containers/{{properCase name}}/constants.js`,
-        templateFile: './container/constants.js.hbs',
-        abortOnFail: true,
-      });
-
       // Selectors
       actions.push({
         type: 'add',
@@ -117,22 +90,23 @@ module.exports = {
       });
       actions.push({
         type: 'add',
-        path: `${assets}/${data.appName}/app/containers/{{properCase name}}/tests/selectors.test.js`,
+        path:
+          `${assets}/${data.appName}/app/containers/{{properCase name}}/tests/selectors.test.js`,
         templateFile: './container/selectors.test.js.hbs',
         abortOnFail: true,
       });
 
-      // Reducer
+      // Slice
       actions.push({
         type: 'add',
-        path: `${assets}/${data.appName}/app/containers/{{properCase name}}/reducer.js`,
-        templateFile: './container/reducer.js.hbs',
+        path: `${assets}/${data.appName}/app/containers/{{properCase name}}/slice.js`,
+        templateFile: './container/slice.js.hbs',
         abortOnFail: true,
       });
       actions.push({
         type: 'add',
-        path: `${assets}/${data.appName}/app/containers/{{properCase name}}/tests/reducer.test.js`,
-        templateFile: './container/reducer.test.js.hbs',
+        path: `${assets}/${data.appName}/app/containers/{{properCase name}}/tests/slice.test.js`,
+        templateFile: './container/slice.test.js.hbs',
         abortOnFail: true,
       });
     }
@@ -161,6 +135,11 @@ module.exports = {
         abortOnFail: true,
       });
     }
+
+    actions.push({
+      type: 'prettify',
+      path: `${assets}/${data.appName}/containers/`,
+    });
 
     return actions;
   },
