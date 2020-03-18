@@ -19,7 +19,8 @@ function checkStatus(response) {
 }
 
 export default function request(url, options) {
-  return axios.get(url, options)
+  return axios
+    .get(url, options)
     .then(checkStatus)
     .then(extractData);
 }

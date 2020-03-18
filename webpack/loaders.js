@@ -1,6 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-
 const commonLoaders = [
   {
     test: /\.jsx?$/,
@@ -39,7 +38,12 @@ module.exports = ({ isProduction }, otherLoaders = []) => {
     styleLoaders = [
       {
         test: /\.s[ca]ss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.css$/,

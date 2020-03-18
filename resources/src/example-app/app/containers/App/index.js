@@ -11,9 +11,7 @@ import { hot } from 'react-hot-loader/root';
 import Router from 'pages';
 
 function App({ match }) {
-  return (
-    <Router match={match} />
-  );
+  return <Router match={match} />;
 }
 
 App.propTypes = {

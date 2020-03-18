@@ -8,17 +8,20 @@ const fs = require('fs');
 const path = require('path');
 const { assets } = require('../../utils/paths.js');
 
-
 function componentExists(appName, component) {
   let pageComponents = [];
   let pageContainers = [];
   try {
-    pageComponents = fs.readdirSync(path.resolve(assets, appName, 'app', 'components'));
+    pageComponents = fs.readdirSync(
+      path.resolve(assets, appName, 'app', 'components'),
+    );
   } catch (e) {
     // Do nothing
   }
   try {
-    pageContainers = fs.readdirSync(path.resolve(assets, appName, 'app', 'containers'));
+    pageContainers = fs.readdirSync(
+      path.resolve(assets, appName, 'app', 'containers'),
+    );
   } catch (e) {
     // Do nothing
   }

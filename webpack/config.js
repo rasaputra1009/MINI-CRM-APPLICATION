@@ -14,7 +14,9 @@ const port = args.port || 8080;
 module.exports = (options = {}) => ({
   appName: options.appName || appName,
   commonsPath,
-  buildPath: options.buildPath || path.resolve(defaultBuildPath, options.appName || appName),
+  buildPath:
+    options.buildPath ||
+    path.resolve(defaultBuildPath, options.appName || appName),
   isProduction,
   isHot,
   port,

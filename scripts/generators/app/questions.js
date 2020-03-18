@@ -15,12 +15,14 @@ module.exports = [
       }
       return /\S/.test(value) || 'Invalid name';
     },
-  }, {
+  },
+  {
     name: 'wantPhpModule',
     type: 'confirm',
     message: 'Should php module be created?',
     default: true,
-  }, {
+  },
+  {
     name: 'phpModuleName',
     message: 'What should it be named',
     when({ wantPhpModule }) {

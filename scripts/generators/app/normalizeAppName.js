@@ -1,1 +1,1 @@
-module.exports = (name) => /-app$/.test(name) ? name : `${name}-app`;
+module.exports = name => (/-app$/.test(name) ? name : `${name}-app`);

@@ -10,7 +10,6 @@ const componentExists = require('../utils/componentExists');
 const apps = require('../../utils/listApps');
 const { assets } = require('../../utils/paths');
 
-
 module.exports = {
   description: 'Add an unconnected component',
   prompts: [
@@ -20,12 +19,13 @@ module.exports = {
       message: 'Select the app for which you want to generate',
       default: 'commons',
       choices: () => apps,
-    }, {
+    },
+    {
       type: 'input',
       name: 'name',
       message: 'What should it be called?',
       default: 'Button',
-      validate: (value) => {
+      validate: value => {
         if (/.+/.test(value)) {
           return componentExists(value)
             ? 'A component or container with this name already exists'
@@ -48,7 +48,7 @@ module.exports = {
       message: 'Do you want to load the component asynchronously?',
     },
   ],
-  actions: (data) => {
+  actions: data => {
     const actions = [
       {
         type: 'add',

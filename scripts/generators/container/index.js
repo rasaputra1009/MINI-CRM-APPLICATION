@@ -15,12 +15,13 @@ module.exports = {
       message: 'Select the app for which you want to generate',
       default: 'commons',
       choices: () => apps,
-    }, {
+    },
+    {
       type: 'input',
       name: 'name',
       message: 'What should it be called?',
       default: 'Form',
-      validate: (value) => {
+      validate: value => {
         if (/.+/.test(value)) {
           return componentExists(value)
             ? 'A component or container with this name already exists'
@@ -62,7 +63,7 @@ module.exports = {
       message: 'Do you want to load resources asynchronously?',
     },
   ],
-  actions: (data) => {
+  actions: data => {
     const actions = [
       {
         type: 'add',
@@ -90,8 +91,7 @@ module.exports = {
       });
       actions.push({
         type: 'add',
-        path:
-          `${assets}/${data.appName}/app/containers/{{properCase name}}/tests/selectors.test.js`,
+        path: `${assets}/${data.appName}/app/containers/{{properCase name}}/tests/selectors.test.js`,
         templateFile: './container/selectors.test.js.hbs',
         abortOnFail: true,
       });

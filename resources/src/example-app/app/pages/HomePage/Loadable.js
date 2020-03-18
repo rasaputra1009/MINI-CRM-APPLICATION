@@ -1,9 +1,12 @@
 /**
+/**
  * Asynchronously loads the component for HomePage
  */
-import Loadable from 'commons/utils/loadable';
 
-export default Loadable({
-  loader: () => import('./index'),
-  loading: () => null,
+import React from 'react';
+import loadable from 'commons/utils/loadable';
+import LoadingIndicator from 'commons/components/LoadingIndicator';
+
+export default loadable(() => import('./index'), {
+  fallback: <LoadingIndicator />,
 });

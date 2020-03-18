@@ -1,6 +1,5 @@
 const { resolve } = require('path');
 
-
 const root = resolve(__dirname, '../..');
 
 const assets = resolve(root, 'resources/src');

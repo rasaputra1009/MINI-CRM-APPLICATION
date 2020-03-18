@@ -5,8 +5,7 @@ function Button({ children, ...rest }) {
   return (
     <button type="button" {...rest}>
       {' '}
-      {children}
-      {' '}
+      {children}{' '}
     </button>
   );
 }
