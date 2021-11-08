@@ -5216,9 +5216,9 @@ hawk@~6.0.2:
     hoek "4.x.x"
     sntp "2.x.x"
 
-"hb-setup@git+ssh://git@tree.mn:rohan.ka/hb-setup.git":
+"hb-setup@git+ssh://git@tree.mn:savla.k/hb-setup.git":
   version "1.0.0"
-  resolved "git+ssh://git@tree.mn:rohan.ka/hb-setup.git#8b83ad7cbc595a88bd7fda93365d6d0427a0f397"
+  resolved "git+ssh://git@tree.mn:savla.k/hb-setup.git#0c8bc18be037082a569e1b37c961eeae05260841"
   dependencies:
     chalk "^2.1.0"
     glob "^7.1.2"
