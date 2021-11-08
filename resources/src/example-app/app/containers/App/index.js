@@ -9,9 +9,14 @@ import PropTypes from 'prop-types';
 import { hot } from 'react-hot-loader/root';
 
 import Router from 'pages';
+import './reset.scss';
 
 function App({ match }) {
-  return <Router match={match} />;
+  return (
+    <div>
+      <Router match={match} />;
+    </div>
+  );
 }
 
 App.propTypes = {

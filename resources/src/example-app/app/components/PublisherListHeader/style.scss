@@ -1,0 +1,22 @@
+.publisherHeader
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    .title{
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    .publisherHeaderRight{
+        .createBtn
+        {
+            background-color: blue;
+            padding: 10px;
+            font: 1em sans-serif;
+            color: white;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+    }
+}

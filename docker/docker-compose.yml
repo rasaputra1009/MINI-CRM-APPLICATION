@@ -1,0 +1,19 @@
+---
+version: "3"
+services:
+  php-deploy-laravel-react-boilerplate:
+    network_mode: host
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - "..:/home/mnet/laravel-react-boilerplate"
+      - "/home/pradeep/projects/module-installer:/home/mnet/module-installer"
+    extra_hosts :
+    - "piemsapi-stage-1.srv.media.net:172.16.200.111"
+    dns :
+      - 172.16.140.33
+    
+
+
+

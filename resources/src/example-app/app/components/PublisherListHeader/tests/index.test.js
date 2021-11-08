@@ -1,32 +1,21 @@
 /**
  *
- * Tests for PublisherListing
+ * Tests for PublisherListHeader
  *
  * @see https://github.com/react-boilerplate/react-boilerplate/tree/master/docs/testing
  *
  */
 
 import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { render } from 'react-testing-library';
+// import 'jest-dom/extend-expect'; // add some helpful assertions
 
-import PublisherListing from '../index';
-import configureStore from '../../../configureStore';
+import PublisherListHeader from '../index';
 
-describe('<PublisherListing />', () => {
-  let store;
-
-  beforeEach(() => {
-    store = configureStore({});
-  });
-
+describe('<PublisherListHeader />', () => {
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
-    render(
-      <Provider store={store}>
-        <PublisherListing />
-      </Provider>,
-    );
+    render(<PublisherListHeader />);
     expect(spy).not.toHaveBeenCalled();
   });
 
@@ -42,11 +31,7 @@ describe('<PublisherListing />', () => {
   it.skip('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
-    } = render(
-      <Provider store={store}>
-        <PublisherListing />
-      </Provider>,
-    );
+    } = render(<PublisherListHeader />);
     expect(firstChild).toMatchSnapshot();
   });
 });
