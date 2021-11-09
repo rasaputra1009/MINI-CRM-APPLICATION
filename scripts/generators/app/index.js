@@ -14,16 +14,10 @@ const addScriptTagInBlade = require('./addScriptTagInBlade');
 const { assets } = require('../../utils/paths');
 const spawn = require('../../utils/spawnPromise');
 
-const boilerplateUrl = 'https://github.com/rohan-ka/react-boilerplate.git';
+const boilerplateUrl = 'https://github.com/vinitkadam/react-boilerplate';
 
 const gitClone = dest =>
-  spawn('git', [
-    'clone',
-    '--depth=1',
-    '--branch react-v16.13.0',
-    boilerplateUrl,
-    dest,
-  ]);
+  spawn('git', ['clone', '--depth=1', boilerplateUrl, dest]);
 const removeGitDirectory = dest => promisify(rimraf)(path.join(dest, '.git'));
 const createPhpModule = name =>
   spawn('php', ['artisan', 'module:make', name], { stdio: 'inherit' });

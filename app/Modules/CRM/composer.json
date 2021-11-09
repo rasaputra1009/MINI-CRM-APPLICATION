@@ -1,0 +1,15 @@
+{
+	"name": "mnet/crm",
+	"description": "",
+	"authors": [
+		{
+			"name": "",
+			"email": "@directi.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Modules\\CRM\\": ""
+		}
+	}
+}
