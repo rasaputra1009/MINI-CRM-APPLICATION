@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\Rules\Unique;
 
 class CreatePublishersTable extends Migration
 {
@@ -16,8 +17,8 @@ class CreatePublishersTable extends Migration
         Schema::create('publishers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
-            $table->integer('phone');
+            $table->string('email')->unique();
+            $table->bigInteger('phone');
             $table->string('website');
             $table->string('assigned_to');
             $table->timestamps();

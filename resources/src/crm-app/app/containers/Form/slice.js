@@ -10,9 +10,7 @@
  * Please see https://immerjs.github.io/immer/docs/introduction for more information.
  *
  */
-
 import { createSlice } from '@reduxjs/toolkit';
-
 export const initialState = {
   name: '',
   email: '',
@@ -22,7 +20,6 @@ export const initialState = {
   post: false,
   error: false,
 };
-
 const formSlice = createSlice({
   name: 'form',
   initialState,
@@ -43,12 +40,12 @@ const formSlice = createSlice({
     updateAssignedTo: (state, { payload }) => {
       state.assigned_to = payload;
     },
-    updateState: state => {
-      state.name = '';
-      state.email = '';
-      state.phone = '';
-      state.website = '';
-      state.assigned_to = '';
+    updateState: (state, { payload }) => {
+      state.name = payload.name;
+      state.email = payload.email;
+      state.phone = payload.phone;
+      state.website = payload.website;
+      state.assigned_to = payload.assigned_to;
     },
     dataPost(state) {
       state.post = true;

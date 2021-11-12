@@ -28,5 +28,17 @@ class CRMController extends Controller {
 	{
 		return CRM::createPublisher($request->all());
 	}
+	public function readInfo($username)
+	{
+		return CRM::readPublisher($username);
+	}
+	public function update(Request $request,$id)
+	{
+		return CRM::updatepublisher($request->all(),$id);
+	}
+	public function delete($id)
+	{
+		return CRM::deletePublisher($id);
+	}
 }
 ?>

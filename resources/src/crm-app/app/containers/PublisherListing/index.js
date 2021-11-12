@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /**
  *
  * PublisherListing
@@ -10,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useInjectReducer, useInjectSaga } from 'redux-injectors';
 import { Link } from 'react-router-dom';
+import Axios from 'axios';
 import { makeSelectPublishers } from './selectors';
 import { loadPublishers, reducer } from './slice';
 import saga from './saga';
@@ -30,6 +32,13 @@ function PublisherListing() {
   useEffect(() => {
     dispatch(loadPublishers());
   }, []);
+
+  function removePublisher(id) {
+    // console.log(`Deleted${id}`);
+    Axios.delete(`/api/crm/publisher/${id}`);
+    dispatch(loadPublishers());
+  }
+
   return (
     <div className="section">
       <table>
@@ -47,10 +56,7 @@ function PublisherListing() {
             <tr>
               <Link
                 to={{
-                  pathname: `/crm/details/${item.name}`,
-                  state: {
-                    name: item.name,
-                  },
+                  pathname: `/crm/details/${item.id}`,
                 }}
               >
                 <td>{item.name}</td>
@@ -59,6 +65,18 @@ function PublisherListing() {
               <td>{item.phone}</td>
               <td>{item.website}</td>
               <td>{item.assigned_to}</td>
+              <Link
+                to={{
+                  pathname: `/crm/edit/${item.id}`,
+                }}
+              >
+                <td>
+                  <button>Edit</button>
+                </td>
+              </Link>
+              <td>
+                <button onClick={() => removePublisher(item.id)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>

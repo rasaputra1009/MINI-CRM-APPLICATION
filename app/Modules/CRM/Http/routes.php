@@ -11,7 +11,9 @@ Route::group(['prefix' => 'crm', 'namespace' => 'Modules\CRM\Http\Controllers'],
 });
 Route::group(['prefix' => '/api/crm', 'namespace' => 'Modules\CRM\Http\Controllers'], function()
 {
-	Route::get('/publisher','CRMController@read');
+	Route::get('/publishers','CRMController@read');
+	Route::get('publisher/{path?}','CRMController@readInfo');
 	Route::post('/publisher','CRMController@create');
-	// Route::post('/login','CRMController@login');
+	Route::delete('/publisher/{path?}','CRMController@delete');
+	Route::put('/publisher/{path?}','CRMController@update');
 });

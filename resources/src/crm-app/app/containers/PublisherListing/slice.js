@@ -14,6 +14,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 export const initialState = {
   publishers: [],
+  users: [],
   loading: false,
   error: false,
 };
@@ -32,6 +33,10 @@ const publisherListingSlice = createSlice({
       state.publishers = payload;
       state.loading = false;
     },
+    loadUsersSuccess(state, { payload }) {
+      state.users = payload;
+      state.loading = false;
+    },
     loadPublishersError(state) {
       state.error = true;
       state.loading = false;
@@ -42,6 +47,7 @@ const publisherListingSlice = createSlice({
 export const {
   loadPublishers,
   loadPublishersSuccess,
+  loadUsersSuccess,
   loadPublishersError,
 } = publisherListingSlice.actions;
 

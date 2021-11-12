@@ -33,10 +33,16 @@ const makeSelectPublishers = () =>
     selectPublisherListingDomain,
     publisherListing => publisherListing.publishers,
   );
+const makeSelectUsers = () =>
+  createSelector(
+    selectPublisherListingDomain,
+    publisherListing => publisherListing.users,
+  );
 
 export {
   selectPublisherListingDomain,
   makeSelectLoading,
   makeSelectError,
   makeSelectPublishers,
+  makeSelectUsers,
 };

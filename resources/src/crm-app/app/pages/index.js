@@ -13,10 +13,10 @@ function Router({ match }) {
   return (
     <Switch>
       <Route path="/crm/home" component={PublisherListingPage} />
-      <Route path="/crm/edit" component={EditPublisherPage} />
       <Route path="/crm/create" component={CreateCustomerPage} />
+      <Route path="/crm/edit/:id" component={CreateCustomerPage} />
       <Route path="/crm/login" component={LoginPage} />
-      <Route path="/crm/details/:username" component={Form} />
+      <Route path="/crm/details/:id" component={Form} />
     </Switch>
   );
 }

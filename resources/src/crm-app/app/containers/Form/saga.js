@@ -2,7 +2,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import request from 'utils/request';
 import axios from 'axios';
-import { makeSelectForm, makeSelectname } from './selectors';
+import { makeSelectForm, makeSelectName } from './selectors';
 import { dataPost, dataPosted, dataPostError } from './slice';
 
 export function* postData() {

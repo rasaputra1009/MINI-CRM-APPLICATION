@@ -17,8 +17,27 @@ const selectFormDomain = state => state.form || initialState;
 
 const makeSelectForm = () =>
   createSelector(selectFormDomain, substate => substate);
-const makeSelectname = () =>
+const makeSelectName = () =>
   createSelector(selectFormDomain, state => state.name);
+const makeSelectEmail = () =>
+  createSelector(selectFormDomain, state => state.email);
+
+const makeSelectPhone = () =>
+  createSelector(selectFormDomain, state => state.phone);
+
+const makeSelectWebsite = () =>
+  createSelector(selectFormDomain, state => state.website);
+
+const makeSelectAssigned = () =>
+  createSelector(selectFormDomain, state => state.assigned_to);
 
 export default makeSelectForm;
-export { selectFormDomain, makeSelectname, makeSelectForm };
+export {
+  selectFormDomain,
+  makeSelectName,
+  makeSelectEmail,
+  makeSelectWebsite,
+  makeSelectAssigned,
+  makeSelectPhone,
+  makeSelectForm,
+};
