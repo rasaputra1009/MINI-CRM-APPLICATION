@@ -9,6 +9,9 @@
         font-weight: bold;
     }
     .publisherHeaderRight{
+        display: flex;
+            flex-direction: row;
+            justify-content: space-between;
         .createBtn
         {
             background-color: blue;

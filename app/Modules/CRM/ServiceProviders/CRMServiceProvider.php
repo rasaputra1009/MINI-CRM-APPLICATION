@@ -1,6 +1,6 @@
-<?php namespace Modules\Crm\ServiceProviders;
+<?php namespace Modules\CRM\ServiceProviders;
 
-use Modules\Crm\Services\CrmService;
+use Modules\CRM\Services\CRMService;
 use Illuminate\Support\ServiceProvider;
 
 class CRMServiceProvider extends ServiceProvider {
@@ -26,14 +26,14 @@ class CRMServiceProvider extends ServiceProvider {
 
     private function registerService()
     {
-        $this->app->singleton('crm', 'Modules\Crm\Services\CrmService');
+        $this->app->singleton('crm', 'Modules\CRM\Services\CRMService');
     }
 
     private function registerRepository()
     {
-        $this->app->when('Modules\Crm\Services\CrmService')
-                  ->needs('App\Data\CMRepository')
-                  ->give('Modules\Crm\Repository\CrmRepository');
+        // $this->app->when('Modules\CRM\Services\CRMService')
+        //           ->needs('App\Data\CMRepository')
+        //           ->give('Modules\CRM\Repository\CRMRepository');
     }
 
     private  function registerConfig()

@@ -1,4 +1,4 @@
-<?php namespace Modules\Crm\Facades;
+<?php namespace Modules\CRM\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -7,3 +7,5 @@ class CRMFacade extends Facade {
         return 'crm';
     }
 }
+
+//Dependency Injection

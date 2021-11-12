@@ -18,9 +18,15 @@ function checkStatus(response) {
   throw error;
 }
 
+// export default function request(url, options) {
+//   return axios
+//     .get(url, options)
+//     .then(checkStatus)
+//     .then(extractData);
+// }
+
 export default function request(url, options) {
-  return axios
-    .get(url, options)
+  return axios(url, options)
     .then(checkStatus)
     .then(extractData);
 }

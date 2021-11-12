@@ -1,8 +1,7 @@
-<?php namespace Modules\Crm\Repository;
+<?php namespace Modules\CRM\Repository;
 
-use App\Data\CMRepository;
 
-class CRMRepository implements CMRepository {
+class CRMRepository {
     /**
      * @param array $settings
      * @return bool

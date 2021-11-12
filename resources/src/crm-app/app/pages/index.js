@@ -1,15 +1,22 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import PublisherListingPage from 'pages/PublisherListingPage';
 import EditPublisherPage from 'pages/EditPublisherPage';
+import CreateCustomerPage from 'pages/CreateCustomerPage';
+import LoginPage from 'pages/LoginPage';
 import './style.scss';
+import Form from 'containers/Form';
 
 function Router({ match }) {
   return (
     <Switch>
       <Route path="/crm/home" component={PublisherListingPage} />
       <Route path="/crm/edit" component={EditPublisherPage} />
+      <Route path="/crm/create" component={CreateCustomerPage} />
+      <Route path="/crm/login" component={LoginPage} />
+      <Route path="/crm/details/:username" component={Form} />
     </Switch>
   );
 }

@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './style.scss';
 
 function PublisherListHeader() {
@@ -14,8 +15,12 @@ function PublisherListHeader() {
     <div className="publisherHeader">
       <h1 className="title">Accounts</h1>
       <div className="publisherHeaderRight">
-        <button className="createBtn">create</button>
-        <button className="createBtn">Logout</button>
+        <Link to="/crm/create">
+          <button className="createBtn">create</button>
+        </Link>
+        <form method="post" action="/crm/logout">
+          <button className="createBtn">Logout</button>
+        </form>
       </div>
     </div>
   );
