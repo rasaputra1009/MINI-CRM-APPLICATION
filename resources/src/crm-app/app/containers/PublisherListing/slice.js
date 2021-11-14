@@ -14,6 +14,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 export const initialState = {
   publishers: [],
+  searchpublishers: [],
+  search: '',
   users: [],
   loading: false,
   error: false,
@@ -24,6 +26,12 @@ const publisherListingSlice = createSlice({
   initialState,
   reducers: {
     // eslint-disable-next-line no-unused-vars
+    searchpublishers(state, { payload }) {
+      state.searchpublishers = payload;
+    },
+    updateSearch(state, { payload }) {
+      state.search = payload;
+    },
     loadPublishers(state) {
       state.loading = true;
       state.error = false;
@@ -33,12 +41,22 @@ const publisherListingSlice = createSlice({
       state.publishers = payload;
       state.loading = false;
     },
-    loadUsersSuccess(state, { payload }) {
-      state.users = payload;
-      state.loading = false;
-    },
     loadPublishersError(state) {
       state.error = true;
+      state.loading = false;
+    },
+    searchPublishers(state) {
+      state.searchpublishers = [];
+    },
+    searchPublishersSuccess(state, { payload }) {
+      state.searchpublishers = payload;
+      state.loading = false;
+    },
+    searchPublishersError(state) {
+      state.error = true;
+    },
+    loadUsersSuccess(state, { payload }) {
+      state.users = payload;
       state.loading = false;
     },
   },
@@ -49,6 +67,10 @@ export const {
   loadPublishersSuccess,
   loadUsersSuccess,
   loadPublishersError,
+  searchPublishers,
+  searchPublishersSuccess,
+  searchPublishersError,
+  updateSearch,
 } = publisherListingSlice.actions;
 
 export const { reducer } = publisherListingSlice;

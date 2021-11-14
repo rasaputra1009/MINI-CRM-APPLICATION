@@ -12,13 +12,14 @@ import { createStructuredSelector } from 'reselect';
 import { useInjectReducer, useInjectSaga } from 'redux-injectors';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import { makeSelectPublishers } from './selectors';
-import { loadPublishers, reducer } from './slice';
+import { makeSelectPublishers, makeSelectSearchPublishers } from './selectors';
+import { loadPublishers, reducer, searchPublishers } from './slice';
 import saga from './saga';
 import './style.scss';
 
 const stateSelector = createStructuredSelector({
   publisherListing: makeSelectPublishers(),
+  searchpublisherslist: makeSelectSearchPublishers(),
 });
 
 function PublisherListing() {
@@ -26,19 +27,18 @@ function PublisherListing() {
   useInjectSaga({ key: 'publisherListing', saga });
 
   /* eslint-disable no-unused-vars */
-  const { publisherListing } = useSelector(stateSelector);
+  const { publisherListing, searchpublisherslist } = useSelector(stateSelector);
   const dispatch = useDispatch();
   /* eslint-enable no-unused-vars */
   useEffect(() => {
-    dispatch(loadPublishers());
+    dispatch(loadPublishers()); // load all users
+    dispatch(searchPublishers()); // load all publishers
   }, []);
 
   function removePublisher(id) {
-    // console.log(`Deleted${id}`);
     Axios.delete(`/api/crm/publisher/${id}`);
     dispatch(loadPublishers());
   }
-
   return (
     <div className="section">
       <table>
@@ -52,7 +52,7 @@ function PublisherListing() {
           </tr>
         </thead>
         <tbody>
-          {publisherListing.map(item => (
+          {searchpublisherslist.map(item => (
             <tr>
               <Link
                 to={{

@@ -13,6 +13,7 @@ Route::group(['prefix' => '/api/crm', 'namespace' => 'Modules\CRM\Http\Controlle
 {
 	Route::get('/publishers','CRMController@read');
 	Route::get('publisher/{path?}','CRMController@readInfo');
+	Route::get('/publishers/{path?}','CRMController@search');
 	Route::post('/publisher','CRMController@create');
 	Route::delete('/publisher/{path?}','CRMController@delete');
 	Route::put('/publisher/{path?}','CRMController@update');

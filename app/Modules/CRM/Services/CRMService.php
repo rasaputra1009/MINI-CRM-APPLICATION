@@ -39,11 +39,16 @@ class CRMService {
     }
     public function readPublishers()
     {   
-        $check=session()->all();
-        $user=$check['user'];
-        $data = Publisher::where('assigned_to', '=',$user)->get();
+        // $check=session()->all();
+        // $user=$check['user'];
+        // $data = Publisher::where('assigned_to', '=',$user)->get();
         $users=User::all()->pluck('username');
-		return [$data,$users];
+		return $users;
+    }
+    public function searchPublishers($search)
+    {
+        $data=Publisher::where('name','like','%'.$search.'%')->orderBy('name')->get();
+		return $data;
     }
     public function readPublisher($id)
     {   

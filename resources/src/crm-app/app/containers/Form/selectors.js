@@ -30,6 +30,7 @@ const makeSelectWebsite = () =>
 
 const makeSelectAssigned = () =>
   createSelector(selectFormDomain, state => state.assigned_to);
+const makeSelectId = () => createSelector(selectFormDomain, state => state.id);
 
 export default makeSelectForm;
 export {
@@ -40,4 +41,5 @@ export {
   makeSelectAssigned,
   makeSelectPhone,
   makeSelectForm,
+  makeSelectId,
 };

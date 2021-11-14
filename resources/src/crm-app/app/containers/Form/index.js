@@ -32,6 +32,8 @@ import {
   updateWebsite,
   updateAssignedTo,
   dataPost,
+  getData,
+  editData,
 } from './slice';
 import saga from './saga';
 const stateSelector = createStructuredSelector({
@@ -51,7 +53,6 @@ function Form() {
   if (pathname.includes('edit')) {
     edit = true;
   }
-
   useInjectReducer({ key: 'form', reducer });
   useInjectSaga({ key: 'formSaga', saga });
   /* eslint-disable no-unused-vars */
@@ -61,9 +62,7 @@ function Form() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (id) {
-      Axios.get(`/api/crm/publisher/${id}`).then(response =>
-        dispatch(updateState(response.data[0])),
-      );
+      dispatch(getData(id));
     } else {
       dispatch(
         updateState({
@@ -97,7 +96,7 @@ function Form() {
     if (!id) {
       dispatch(dataPost());
     } else {
-      Axios.put(`/api/crm/publisher/${id}`, form);
+      dispatch(editData(id));
     }
   };
   return (

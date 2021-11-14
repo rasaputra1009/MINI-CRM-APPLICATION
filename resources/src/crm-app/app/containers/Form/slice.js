@@ -12,12 +12,14 @@
  */
 import { createSlice } from '@reduxjs/toolkit';
 export const initialState = {
+  id: '',
   name: '',
   email: '',
   phone: '',
   website: '',
   assigned_to: '',
   post: false,
+  edit: false,
   error: false,
 };
 const formSlice = createSlice({
@@ -58,6 +60,30 @@ const formSlice = createSlice({
       state.error = true;
       state.post = false;
     },
+    getData(state, { payload }) {
+      state.id = payload;
+      state.post = true;
+      state.error = false;
+    },
+    getDataSuccess(state) {
+      state.post = false;
+    },
+    getDataError(state) {
+      state.error = true;
+      state.post = false;
+    },
+    editData(state, { payload }) {
+      state.id = payload;
+      state.edit = true;
+      state.error = false;
+    },
+    editDataSuccess(state) {
+      state.edit = false;
+    },
+    editDataError(state) {
+      state.error = true;
+      state.edit = false;
+    },
   },
 });
 
@@ -71,6 +97,12 @@ export const {
   dataPost,
   dataPosted,
   dataPostError,
+  getData,
+  getDataSuccess,
+  getDataError,
+  editData,
+  editDataSuccess,
+  editDataError,
 } = formSlice.actions;
 
 export const { reducer } = formSlice;
