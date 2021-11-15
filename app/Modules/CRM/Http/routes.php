@@ -11,10 +11,10 @@ Route::group(['prefix' => 'crm', 'namespace' => 'Modules\CRM\Http\Controllers'],
 });
 Route::group(['prefix' => '/api/crm', 'namespace' => 'Modules\CRM\Http\Controllers'], function()
 {
-	Route::get('/publishers','CRMController@read');
-	Route::get('publisher/{path?}','CRMController@readInfo');
-	Route::get('/publishers/{path?}','CRMController@search');
-	Route::post('/publisher','CRMController@create');
-	Route::delete('/publisher/{path?}','CRMController@delete');
+	Route::get('/publisher','CRMController@read'); // read users
+	Route::get('publisher/{path?}','CRMController@readInfo'); //read specific user
+	Route::get('publishers','CRMController@search');// search publishers
+	Route::post('/publisher','CRMController@create'); // create publisher
+	Route::delete('publisher/{path?}','CRMController@delete');
 	Route::put('/publisher/{path?}','CRMController@update');
 });

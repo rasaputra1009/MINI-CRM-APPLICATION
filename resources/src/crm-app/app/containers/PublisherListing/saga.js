@@ -2,7 +2,7 @@
 // import Axios from 'axios';
 import request from 'utils/request';
 import { call, all, put, takeLatest, select } from 'redux-saga/effects';
-import { pullAllBy } from 'lodash';
+import axios from 'axios';
 import {
   loadPublishers,
   loadPublishersSuccess,
@@ -11,14 +11,17 @@ import {
   searchPublishers,
   searchPublishersSuccess,
   searchPublishersError,
+  deletePublisher,
+  deletePublisherSuccess,
+  deletePublisherError,
 } from './slice';
-import { makeSelectSearch } from './selectors';
+import { makeSelectSearch, makeSelectId } from './selectors';
 
 // Individual exports for testing
 export function* getAllUsers() {
-  const requestURL = `/api/crm/publishers`;
+  const requestURL = `/api/crm/publisher`;
   try {
-    const users = yield call(request, requestURL);
+    const [users = yield call(request, requestURL);
     yield put(loadUsersSuccess(users));
   } catch (err) {
     yield put(loadPublishersError(err));
@@ -26,12 +29,22 @@ export function* getAllUsers() {
 }
 export function* getSearchPublisherData() {
   const search = yield select(makeSelectSearch());
-  const requestURL = `/api/crm/publishers/${search}%`;
+  const requestURL = `/api/crm/publishers?search=${search}`;
   try {
     const publishers = yield call(request, requestURL);
     yield put(searchPublishersSuccess(publishers));
   } catch (err) {
     yield put(searchPublishersError(err));
+  }
+}
+export function* deletePublisherdataa() {
+  const id = yield select(makeSelectId());
+  const requestURL = `/api/crm/publisher/${id}`;
+  try {
+    yield call(axios.delete, requestURL);
+    yield put(deletePublisherSuccess({ delete: true }));
+  } catch (error) {
+    yield put(deletePublisherError(error));
   }
 }
 
@@ -41,6 +54,13 @@ export function* getPublishersData() {
 export function* getSearchPublishersData() {
   yield takeLatest(searchPublishers.type, getSearchPublisherData);
 }
+export function* deletePublisherData() {
+  yield takeLatest(deletePublisher.type, deletePublisherdataa);
+}
 export default function* publisherListingSaga() {
-  yield all([getSearchPublishersData(), getPublishersData()]);
+  yield all([
+    getSearchPublishersData(),
+    getPublishersData(),
+    deletePublisherData(),
+  ]);
 }

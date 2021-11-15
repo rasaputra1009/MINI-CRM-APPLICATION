@@ -11,9 +11,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useInjectReducer, useInjectSaga } from 'redux-injectors';
 import { Link } from 'react-router-dom';
-import Axios from 'axios';
+// import Axios from 'axios';
 import { makeSelectPublishers, makeSelectSearchPublishers } from './selectors';
-import { loadPublishers, reducer, searchPublishers } from './slice';
+import {
+  loadPublishers,
+  reducer,
+  searchPublishers,
+  deletePublisher,
+} from './slice';
 import saga from './saga';
 import './style.scss';
 
@@ -35,10 +40,10 @@ function PublisherListing() {
     dispatch(searchPublishers()); // load all publishers
   }, []);
 
-  function removePublisher(id) {
-    Axios.delete(`/api/crm/publisher/${id}`);
-    dispatch(loadPublishers());
-  }
+  const removePublisher = id => {
+    dispatch(deletePublisher(id));
+    dispatch(searchPublishers());
+  };
   return (
     <div className="section">
       <table>

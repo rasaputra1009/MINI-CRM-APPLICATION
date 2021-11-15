@@ -32,6 +32,11 @@ const makeSelectError = () =>
     selectPublisherListingDomain,
     publisherListing => publisherListing.error,
   );
+const makeSelectId = () =>
+  createSelector(
+    selectPublisherListingDomain,
+    publisherListing => publisherListing.id,
+  );
 
 const makeSelectPublishers = () =>
   createSelector(
@@ -55,6 +60,7 @@ export {
   makeSelectError,
   makeSelectPublishers,
   makeSelectUsers,
+  makeSelectId,
   makeSelectSearch,
   makeSelectSearchPublishers,
 };

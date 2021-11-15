@@ -24,9 +24,17 @@ class CRMController extends Controller {
 	{
 		return CRM::readPublishers();
 	}
-	public function search($search)
+	public function search(Request $request)
 	{
-		return CRM::searchPublishers($search);
+		$res=$request->all();
+		if(count($res)>0)
+		{
+			$search=$res['search'];
+			return CRM::searchPublishers($search);	
+		}
+		else{
+			return CRM::searchPublishers('');
+		}
 	}
 	public function create(Request $request)
 	{
