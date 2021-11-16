@@ -36,7 +36,6 @@
             "git add"
         ],
         "**/*.php": [
-            "lint:php",
             "git add"
         ]
     },
