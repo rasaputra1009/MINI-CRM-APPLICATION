@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Session;
 use Illuminate\Http\Request;
 
 class AuthMiddleWare
@@ -16,12 +17,17 @@ class AuthMiddleWare
      */
     public function handle(Request $request, Closure $next)
     {
-        $check= session()->all();
-        if(!array_key_exists('user',$check))
+        $path=$request->path();
+        if($path=='crm/login' && Session::get('user'))
         {
-            //    return redirect('/api/crm/login');
-               return redirect()->away(env('/api/crm/login'));
+            return redirect('crm/home');
         }
-        return $next($request);
+        else if($path!='crm/login' && !Session::get('user'))
+        {
+            return redirect('crm/login');   
+        }
+        else{
+            return $next($request);
+        }
     }
 }

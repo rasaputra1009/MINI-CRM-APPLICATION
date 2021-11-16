@@ -37,6 +37,11 @@ const makeSelectId = () =>
     selectPublisherListingDomain,
     publisherListing => publisherListing.id,
   );
+const makeSelectFilter = () =>
+  createSelector(
+    selectPublisherListingDomain,
+    publisherListing => publisherListing.filter,
+  );
 
 const makeSelectPublishers = () =>
   createSelector(
@@ -53,7 +58,16 @@ const makeSelectUsers = () =>
     selectPublisherListingDomain,
     publisherListing => publisherListing.users,
   );
-
+const makeSelectUserRole = () =>
+  createSelector(
+    selectPublisherListingDomain,
+    publisherListing => publisherListing.userInfo.userrole,
+  );
+const makeSelectUser = () =>
+  createSelector(
+    selectPublisherListingDomain,
+    publisherListing => publisherListing.userInfo.user,
+  );
 export {
   selectPublisherListingDomain,
   makeSelectLoading,
@@ -61,6 +75,9 @@ export {
   makeSelectPublishers,
   makeSelectUsers,
   makeSelectId,
+  makeSelectFilter,
   makeSelectSearch,
+  makeSelectUserRole,
   makeSelectSearchPublishers,
+  makeSelectUser,
 };

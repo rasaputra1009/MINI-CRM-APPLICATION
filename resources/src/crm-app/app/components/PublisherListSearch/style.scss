@@ -1,7 +1,10 @@
 .publisherSearch
 {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
     input{
-        width: 100%;
+        width: 80%;
         padding: 10px;
         border: none;
         outline: none;

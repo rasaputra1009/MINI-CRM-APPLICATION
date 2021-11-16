@@ -12,9 +12,14 @@ import { createStructuredSelector } from 'reselect';
 import { useInjectReducer, useInjectSaga } from 'redux-injectors';
 import { Link } from 'react-router-dom';
 // import Axios from 'axios';
-import { makeSelectPublishers, makeSelectSearchPublishers } from './selectors';
 import {
-  loadPublishers,
+  makeSelectPublishers,
+  makeSelectSearchPublishers,
+  makeSelectUserRole,
+  makeSelectUser,
+} from './selectors';
+import {
+  loadUserInfo,
   reducer,
   searchPublishers,
   deletePublisher,
@@ -25,6 +30,8 @@ import './style.scss';
 const stateSelector = createStructuredSelector({
   publisherListing: makeSelectPublishers(),
   searchpublisherslist: makeSelectSearchPublishers(),
+  userrole: makeSelectUserRole(),
+  user: makeSelectUser(),
 });
 
 function PublisherListing() {
@@ -32,11 +39,16 @@ function PublisherListing() {
   useInjectSaga({ key: 'publisherListing', saga });
 
   /* eslint-disable no-unused-vars */
-  const { publisherListing, searchpublisherslist } = useSelector(stateSelector);
+  const {
+    publisherListing,
+    searchpublisherslist,
+    userrole,
+    user,
+  } = useSelector(stateSelector);
   const dispatch = useDispatch();
   /* eslint-enable no-unused-vars */
   useEffect(() => {
-    dispatch(loadPublishers()); // load all users
+    dispatch(loadUserInfo()); // load all users
     dispatch(searchPublishers()); // load all publishers
   }, []);
 
@@ -76,11 +88,22 @@ function PublisherListing() {
                 }}
               >
                 <td>
-                  <button>Edit</button>
+                  {userrole === 'salesrep' ? (
+                    <button disabled={!(item.assigned_to === user)}>
+                      Edit
+                    </button>
+                  ) : (
+                    <button>Edit</button>
+                  )}
                 </td>
               </Link>
               <td>
-                <button onClick={() => removePublisher(item.id)}>Delete</button>
+                <button
+                  onClick={() => removePublisher(item.id)}
+                  disabled={!(userrole === 'admin')}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

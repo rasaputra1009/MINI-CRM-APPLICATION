@@ -18,34 +18,24 @@ export const initialState = {
   searchpublishers: [],
   search: '',
   delete: false,
-  users: [],
   loading: false,
   error: false,
+  filter: 'name',
+  userInfo: {
+    user: '',
+    userrole: '',
+  },
 };
 
 const publisherListingSlice = createSlice({
   name: 'publisherListing',
   initialState,
   reducers: {
-    // eslint-disable-next-line no-unused-vars
-    // searchpublishers(state, { payload }) {
-    //   state.searchpublishers = payload;
-    // },
     updateSearch(state, { payload }) {
       state.search = payload;
     },
-    loadPublishers(state) {
-      state.loading = true;
-      state.error = false;
-      state.publishers = [];
-    },
-    loadPublishersSuccess(state, { payload }) {
-      state.publishers = payload;
-    },
-    loadPublishersError(state) {
-      state.loading = false;
-      state.error = true;
-      state.loading = false;
+    updateFilter(state, { payload }) {
+      state.filter = payload;
     },
     searchPublishers(state) {
       state.searchpublishers = [];
@@ -69,18 +59,22 @@ const publisherListingSlice = createSlice({
       state.error = true;
       state.delete = false;
     },
-    loadUsersSuccess(state, { payload }) {
-      state.users = payload;
-      state.loading = false;
+    loadUserInfo(state) {
+      state.userInfo.user = '';
+      state.userInfo.userrole = '';
+    },
+    loadUserInfoSuccess(state, { payload }) {
+      state.userInfo.user = payload.username;
+      state.userInfo.userrole = payload.userrole;
+    },
+    loadUserInfoError(state, { payload }) {
+      state.error = payload;
     },
   },
 });
 
 export const {
-  loadPublishers,
-  loadPublishersSuccess,
   loadUsersSuccess,
-  loadPublishersError,
   searchPublishers,
   searchPublishersSuccess,
   searchPublishersError,
@@ -88,6 +82,10 @@ export const {
   deletePublisherError,
   deletePublisherSuccess,
   updateSearch,
+  updateFilter,
+  loadUserInfo,
+  loadUserInfoSuccess,
+  loadUserInfoError,
 } = publisherListingSlice.actions;
 
 export const { reducer } = publisherListingSlice;

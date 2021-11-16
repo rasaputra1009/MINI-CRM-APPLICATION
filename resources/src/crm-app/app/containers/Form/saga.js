@@ -14,8 +14,19 @@ import {
   editDataSuccess,
   editDataError,
   updateState,
+  loadUsers,
+  loadUsersSuccess,
+  loadUsersError,
 } from './slice';
-
+export function* getAllUsers() {
+  const requestURL = '/url/users';
+  try {
+    const [users] = yield call(request, requestURL);
+    yield put(loadUsersSuccess(users.Users));
+  } catch (err) {
+    yield put(loadUsersError(err));
+  }
+}
 export function* postData() {
   const form = yield select(makeSelectForm());
   try {
@@ -45,6 +56,9 @@ export function* updateData() {
     yield put(editDataError(error));
   }
 }
+export function* getUsers() {
+  yield takeLatest(loadUsers.type, getAllUsers);
+}
 export function* postPublisher() {
   yield takeLatest(dataPost.type, postData);
 }
@@ -55,5 +69,5 @@ export function* editPublisher() {
   yield takeLatest(editData.type, updateData);
 }
 export default function* formSaga() {
-  yield all([postPublisher(), getPublisher(), editPublisher()]);
+  yield all([getUsers(), postPublisher(), getPublisher(), editPublisher()]);
 }

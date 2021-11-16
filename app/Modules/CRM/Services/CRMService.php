@@ -3,10 +3,11 @@
 use Modules\CRM\Repository\CRMRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Publisher;
-use App\User;
 use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\HttpFoundation\Request;
+use App\Publisher;
+use App\User;
+use Cookie;
 
 class CRMService {
     private $repository = null; 
@@ -19,12 +20,14 @@ class CRMService {
     }
     public function login($payload)
     {
-        $user=$payload['username'];
         $email=$payload['email'];
         $password=$payload['password'];
         if (Auth::attempt(['email'=>$email,'password'=>$password])) 
         {
-            \Session::put(['email'=>$email,'user'=>$user]);
+            $userInfo = User::where('email', '=',$email)->first();
+            $role=$userInfo['userrole'];
+            $user=$userInfo['username'];
+            \Session::put(['email'=>$email,'user'=>$user,'userrole'=>$role]);
             \Session::save();
             return redirect('/crm/home');
         }
@@ -37,18 +40,44 @@ class CRMService {
         \Session::flush();
         return redirect('/crm/login');
     }
-    public function readPublishers()
+    public function readUserInfo()
     {   
-        // $check=session()->all();
-        // $user=$check['user'];
-        // $data = Publisher::where('assigned_to', '=',$user)->get();
-        $users=User::all()->pluck('username');
-		return $users;
+        $check=session()->all();
+        $user=$check['user'];
+        $userInfo = User::where('username', '=',$user)->first();
+        return response()->json([
+            $data =[
+                "username"=>$userInfo['username'],
+                "userrole"=>$userInfo['userrole'],
+            ]
+        ]);
     }
-    public function searchPublishers($search)
+    public function readUsers()
+    {   
+        $users=User::all()->pluck('username');
+		return response()->json([
+            $data=[
+                "Users"=>$users
+            ]
+        ]);
+    }
+    public function searchPublishers($filter,$search)
     {
-        $data=Publisher::where('name','like','%'.$search.'%')->orderBy('name')->get();
-		return $data;
+        $check=session()->all();
+        $user=$check['user'];
+        $userInfo = User::where('username', '=',$user)->first();
+        $role=$userInfo['userrole'];
+        if($role==='account')
+        {
+            $dataAll=Publisher::where('assigned_to','=',$userInfo['username'])->
+                                where($filter,'like','%'.$search.'%')->orderBy('name')->get();
+            // dd($dataAll);
+            return $dataAll;
+        }
+        else{
+            $data=Publisher::where($filter,'like','%'.$search.'%')->orderBy('name')->get();
+            return $data;
+        }
     }
     public function readPublisher($id)
     {   
@@ -57,14 +86,34 @@ class CRMService {
     }
     public function updatepublisher($payload,$id)
     {   
-       $data=Publisher::find($id);
-       $data->name=$payload['name'];
-       $data->email=$payload['email'];
-       $data->phone=$payload['phone'];
-       $data->website=$payload['website'];
-       $data->assigned_to=$payload['assigned_to'];
-       $data->save();
-		return "Updated Successfully";
+    
+        $check=session()->all();
+        $user=$check['user'];
+        $data=Publisher::find($id);
+        $data->name=$payload['name'];
+        $data->email=$payload['email'];
+        $data->phone=$payload['phone'];
+        $data->website=$payload['website'];
+        $data->assigned_to=$payload['assigned_to'];
+        $data->save();
+        // $data->update($payload);
+        return "Updated";
+    //    if(data['assigned_to']===$user)
+    //    {
+    //           $data=Publisher::find($id);
+    //         $data->name=$payload['name'];
+    //         $data->email=$payload['email'];
+    //         $data->phone=$payload['phone'];
+    //         $data->website=$payload['website'];
+    //         $data->assigned_to=$payload['assigned_to'];
+    //         $data->save();
+	// 	    return "Updated Successfully";
+    //    }
+    //    else{
+    //     return Response::json([
+    //         'message'=>"Access Denied"
+    //     ], 403);
+    //    }
     }
     public function deletepublisher($id)
     {

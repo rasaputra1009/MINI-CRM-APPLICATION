@@ -5,8 +5,11 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use CRM;
 use Response;
-
 class CRMController extends Controller {
+	public function index()
+	{	
+		return view('Crm::index');
+	}
 	function login(Request $request)
     {
         return CRM::login($request->all());
@@ -15,26 +18,34 @@ class CRMController extends Controller {
     {
         return CRM::logout();
     }
-	public function index()
-	{
-		
-		return view('Crm::index');
-	}
 	public function read()
 	{
-		return CRM::readPublishers();
+		$check= session()->all();
+        if(!array_key_exists('user',$check))
+        {
+			return redirect('/crm/login');
+		}
+		else{
+			return CRM::readUserInfo();
+		}
+	}
+	public function readAll()
+	{
+		$check= session()->all();
+		return CRM::readUsers();
 	}
 	public function search(Request $request)
 	{
-		$res=$request->all();
-		if(count($res)>0)
-		{
-			$search=$res['search'];
-			return CRM::searchPublishers($search);	
-		}
-		else{
-			return CRM::searchPublishers('');
-		}
+			$res=$request->all();
+			if(count($res)>0)
+			{
+				$search=$res['search'];
+				$filter=$res['filter'];
+				return CRM::searchPublishers($filter,$search);	
+			}
+			else{
+				return CRM::searchPublishers('');
+			}
 	}
 	public function create(Request $request)
 	{

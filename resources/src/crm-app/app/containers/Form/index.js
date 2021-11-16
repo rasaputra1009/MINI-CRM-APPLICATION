@@ -10,9 +10,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { makeSelectUsers } from 'containers/PublisherListing/selectors';
 import { createStructuredSelector } from 'reselect';
-import { useParams } from 'react-router';
+import { useParams, useHistory } from 'react-router';
 import { useInjectReducer, useInjectSaga } from 'redux-injectors';
 import Axios from 'axios';
 import makeSelectForm, {
@@ -21,6 +20,7 @@ import makeSelectForm, {
   makeSelectPhone,
   makeSelectAssigned,
   makeSelectWebsite,
+  makeSelectUsers,
 } from './selectors';
 import './style.scss';
 import {
@@ -33,6 +33,7 @@ import {
   updateAssignedTo,
   dataPost,
   getData,
+  loadUsers,
   editData,
 } from './slice';
 import saga from './saga';
@@ -48,6 +49,7 @@ const stateSelector = createStructuredSelector({
 
 function Form() {
   const { id } = useParams();
+  const history = useHistory();
   const { pathname } = window.location;
   let edit = false;
   if (pathname.includes('edit')) {
@@ -60,7 +62,9 @@ function Form() {
     stateSelector,
   );
   const dispatch = useDispatch();
+  // const userss = ['userone', 'usertwo'];
   useEffect(() => {
+    dispatch(loadUsers());
     if (id) {
       dispatch(getData(id));
     } else {
@@ -98,6 +102,8 @@ function Form() {
     } else {
       dispatch(editData(id));
     }
+    // console.log('Hello');
+    history.push('/crm/home');
   };
   return (
     <div>

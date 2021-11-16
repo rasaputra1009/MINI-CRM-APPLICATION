@@ -6,12 +6,11 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 import './style.scss';
 import { createStructuredSelector } from 'reselect';
 import {
   updateSearch,
+  updateFilter,
   searchPublishers,
 } from 'containers/PublisherListing/slice';
 import {
@@ -32,9 +31,22 @@ function PublisherListSearch() {
     dispatch(updateSearch(e.target.value));
     dispatch(searchPublishers());
   };
+  const selectAttribute = e => {
+    dispatch(updateFilter(e.target.value));
+  };
   return (
     <div className="publisherSearch">
-      <input type="text" placeholder="Search by name" onChange={changeSearch} />
+      <div className="dropDown">
+        <label htmlFor="attribute">Search by:</label>
+        <select name="attribute" id="attribute" onChange={selectAttribute}>
+          <option value="name">Name</option>
+          <option value="email">Email Id</option>
+          <option value="phone">Phone</option>
+          <option value="website">Website</option>
+          <option value="assigned_to">Assigned User</option>
+        </select>
+      </div>
+      <input type="search" placeholder="Search Here" onChange={changeSearch} />
     </div>
   );
 }
