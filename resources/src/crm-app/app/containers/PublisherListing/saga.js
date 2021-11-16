@@ -30,7 +30,7 @@ export function* getUserInfo() {
 export function* getSearchPublisherData() {
   const search = yield select(makeSelectSearch());
   const filter = yield select(makeSelectFilter());
-  const requestURL = `/api/crm/publishers?filter=${filter}&search=${search}`;
+  const requestURL = `/api/crm/publishers?${filter}=${search}`;
   try {
     const publishers = yield call(request, requestURL);
     yield put(searchPublishersSuccess(publishers));
