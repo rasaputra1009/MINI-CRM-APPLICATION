@@ -6,22 +6,15 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-
 import { useInjectReducer, useInjectSaga } from 'redux-injectors';
 import Axios from 'axios';
 import { Redirect } from 'react-router';
 import { makeSelectLogin, makeSelectPost } from './selectors';
-import {
-  updateUserName,
-  updatePassword,
-  updateEmail,
-  reducer,
-  loggingIn,
-} from './slice';
+import { updateUserName, updatePassword, reducer, loggingIn } from './slice';
 import saga from './saga';
+import './style.scss';
 
 const stateSelector = createStructuredSelector({
   login: makeSelectLogin(),
@@ -43,17 +36,10 @@ function Login() {
   const changePassword = e => {
     dispatch(updatePassword(e.target.value));
   };
-  const changeEmail = e => {
-    dispatch(updateEmail(e.target.value));
-  };
-  // const loginForm = e => {
-  //   // e.preventDefault();
-  //   // dispatch(loggingIn());
-  // };
   return (
     <div>
       <form className="form" method="post" action="/crm/login">
-        <h1>Login Here</h1>
+        <h1 className="head">Login Here</h1>
         <label htmlFor="username">Username</label>
         <input
           type="text"
@@ -62,18 +48,10 @@ function Login() {
           onChange={changeUserName}
           required
         />
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter Email"
-          onChange={changeEmail}
-          required
-        />
         <label htmlFor="password">Password</label>
         <input
-          type="password"
           name="password"
+          type="password"
           placeholder="Enter Password"
           onChange={changePassword}
           required
@@ -84,7 +62,5 @@ function Login() {
     </div>
   );
 }
-
-Login.propTypes = {};
 
 export default Login;

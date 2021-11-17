@@ -1,13 +1,39 @@
+@import '../../sass/variables.scss';
 .publisherSearch
 {
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-    input{
-        width: 80%;
-        padding: 10px;
-        border: none;
-        outline: none;
+    @include flex(row);
+    justify-content: space-between;
+    align-items: $alignItems;
+    .search
+    {
+        font-size: $fontSize;
+        margin-left:$marginLeft;
     }
-    padding: 10px;
+     input{
+        width:$btnWidth;
+        height: $inpHeight;
+        margin-right: $marginRight;
+        border-radius: $borderRadius;
+        outline: $outline;
+     }
+    .dropdown-select
+    {
+        width: $dropDownWidth;
+        margin-left:$marginExtraTop;
+        border-radius: $borderRadius;
+        height: $inpHeight;
+        color: $textColor;
+        outline: $outline;
+        background-color:lightyellow;
+    }
+    .dropdown-assigned
+    {
+        width:$dropDownWidth;
+        margin-left:$marginExtraTop;
+        border-radius: $borderRadius;
+        height: $inpHeight;
+        color: $textColor;
+        outline: $outline;
+        background-color:lightyellow;
+    }
 }

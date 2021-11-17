@@ -36,16 +36,33 @@ function PublisherListSearch() {
   };
   return (
     <div className="publisherSearch">
-      <div className="dropDown">
-        <label htmlFor="attribute">Search by:</label>
-        <select name="attribute" id="attribute" onChange={selectAttribute}>
-          <option value="name">Name</option>
-          <option value="email">Email Id</option>
-          <option value="phone">Phone</option>
-          <option value="website">Website</option>
-          <option value="assigned_to">Assigned User</option>
-        </select>
-      </div>
+      <label htmlFor="attribute" className="search">
+        Search by:
+      </label>
+      <select
+        name="attribute"
+        id="attribute"
+        onChange={selectAttribute}
+        className="dropdown-select"
+      >
+        <option value="name">Name</option>
+        <option value="email">Email Id</option>
+        <option value="phone">Phone</option>
+        <option value="website">Website</option>
+        <option value="assigned_to">Assigned User</option>
+      </select>
+      <select
+        name="attribute"
+        id="attribute"
+        onChange={selectAttribute}
+        className="dropdown-assigned"
+      >
+        <option>Assigned_to</option>
+        <option value="assigned_to">Usertwo</option>
+        <option value="assigned_to">Userthree</option>
+        <option value="assigned_to">Userfour</option>
+        <option value="assigned_to">Userfive</option>
+      </select>
       <input type="search" placeholder="Search Here" onChange={changeSearch} />
     </div>
   );

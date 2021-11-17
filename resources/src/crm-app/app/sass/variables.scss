@@ -1,0 +1,30 @@
+@mixin flex($direction) {
+    display: flex;
+    flex-direction:$direction;
+}
+$inpWidth:80%;
+$inpHeight:40px;
+$height:40px;
+$fontSize:1.4em;
+$margin:auto;
+$fontWeight:bold;
+$outline:none;
+$borderColor:black;
+$borderCollapse:collapse;
+$justifyContent:center;
+$labelColor:black;
+$borderRadius:5px;
+$marginBtm:20px;
+$marginTop:20px;
+$marginLeft:20px;
+$marginRight:20px;
+$marginExtraTop:120px;
+$bgColor:lightblue;
+$alignItems:center;
+$btnWidth:20%;
+$btnHeight:35px;
+$btnFontSize:1.4em;
+$textColor:black;
+$btnBgColor:lightblue;
+$dropDownWidth:20%;
+$padding:15px;

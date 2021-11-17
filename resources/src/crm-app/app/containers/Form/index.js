@@ -107,7 +107,7 @@ function Form() {
   };
   return (
     <div>
-      <form className="form" onSubmit={formSubmit}>
+      <form className="publisherForm" onSubmit={formSubmit}>
         <label htmlFor="name">Name</label>
         <input
           type="text"
@@ -144,17 +144,20 @@ function Form() {
           disabled={id && !edit}
           required
         />
-        <label htmlFor="website">Assigned To</label>
-        <select
-          name="assigned_to"
-          onChange={changeAssignedTo}
-          disabled={id && !edit}
-        >
-          <option>{assigned_to}</option>
-          {users.map(user => (
-            <option value={user}>{user}</option>
-          ))}
-        </select>
+        <div className="dropdown">
+          <label htmlFor="website">Assigned To:</label>
+          <select
+            name="assigned_to"
+            className="dropdown-select"
+            onChange={changeAssignedTo}
+            disabled={id && !edit}
+          >
+            <option>{assigned_to}</option>
+            {users.map(user => (
+              <option value={user}>{user}</option>
+            ))}
+          </select>
+        </div>
         <input type="submit" className="btn" disabled={id && !edit} />
       </form>
     </div>

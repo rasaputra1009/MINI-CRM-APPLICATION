@@ -1,27 +1,36 @@
+@import '../../sass/variables.scss';
 .form
 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width:80%;
-    margin: auto;
-    margin-top: 40px;
+   @include flex(column);
+   align-items: center;
+    justify-content: $justifyContent;
+    border: 2px solid $borderColor;
+    margin-top:$marginExtraTop;
+    border-radius: $borderRadius;
+    .head
+    {
+        margin-top: $marginTop;
+        margin-bottom: $marginBtm;
+        font-size: $fontSize;
+    }
     input{
-        height: 40px;
-        margin-bottom:20px;
-        outline:none;
+        height: $height;
+        width: 50%;
+        border-radius: $borderRadius;
+        margin-bottom:$marginBtm;
+        outline:$outline;
     }
     label
     {
-        color:black;
-        font-weight: bold;
-        font-size: 1.4em ;
+        color:$labelColor;
+        font-weight: $fontWeight;
+        font-size: $fontSize;
     }
     .btn{
-        width: 10%;
-        align-self:center;
-        height: 30px;
-        font-size: 1.3em;
-        background-color: cadetblue;
+        text-align:center;
+        height: $height;
+        width: 30%;
+        font-size:$fontSize;
+        background-color:$bgColor;
     }
 }

@@ -8,7 +8,6 @@ function index() {
   return (
     <div>
       <PublisherListHeader />
-      <hr />
       <PublisherListSearch />
       <PublisherList />
     </div>

@@ -14,7 +14,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 export const initialState = {
   username: '',
-  email: '',
   password: '',
   post: false,
   error: false,
@@ -28,9 +27,6 @@ const loginSlice = createSlice({
     updateUserName: (state, { payload }) => {
       state.username = payload;
     },
-    updateEmail: (state, { payload }) => {
-      state.email = payload;
-    },
     updatePassword: (state, { payload }) => {
       state.password = payload;
     },
@@ -43,7 +39,6 @@ const loginSlice = createSlice({
     },
     loginFailed(state) {
       state.username = '';
-      state.email = '';
       state.password = '';
       state.error = true;
       state.post = false;
@@ -54,7 +49,6 @@ const loginSlice = createSlice({
 export const {
   updateUserName,
   updatePassword,
-  updateEmail,
   loggingIn,
   loginSuccess,
   loginFailed,

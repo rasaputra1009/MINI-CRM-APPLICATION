@@ -1,18 +1,51 @@
+@import '../../sass/variables.scss';
 .section{
     table{
         width: 98%;
-        margin:10px;
-        // margin-left: 10px;
-        // margin-right: 10px;
+        margin-top: $marginTop;
+        margin-left: $marginLeft;
+        margin-right: $marginRight;
     }
-    table, th ,tr{
-        border:1px solid #dddddd;
-        border-collapse: collapse;
-        padding: 15px;
-        background-color: white;
+    table,th,tr{
+        border:2px solid #dddddd;
+        border-collapse:$borderCollapse;
+        padding:$padding;
       }
       td{
-          padding: 10px;
+          padding:$padding;
          text-align: center;
+      }
+      .thead
+      {
+        font-size: 1.4em;
+        font-weight: $fontWeight;
+        background-color: $bgColor;
+      }
+      .tbody
+      {
+          font-size:1.2em;
+          align-items: center;
+          background-color:white ;
+      }
+      .name
+      {
+          color: blue;
+          text-decoration:none;
+      }
+      .email
+      {
+          color: blue;
+      }
+      .edit
+      {
+          color:white;
+          border-radius: $borderRadius;
+          background-color: yellowgreen;
+      }
+      .delete
+      {
+          color:white;
+          border-radius: $borderRadius;
+          background-color: red;
       }
 }

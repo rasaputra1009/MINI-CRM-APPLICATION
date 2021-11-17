@@ -1,27 +1,45 @@
-.form
+@import '../../sass/variables.scss';
+.publisherForm
 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width:80%;
+   @include flex(column);
+   justify-content:$justifyContent;
+    width:$inpWidth;
     margin: auto;
-    margin-top: 40px;
+    margin-top:$marginTop;
     input{
-        height: 40px;
-        margin-bottom:20px;
-        outline:none;
+        height: $inpHeight;
+        margin-bottom:$marginBtm;
+        outline:$outline;
+        border-radius: $borderRadius;
     }
     label
     {
-        color:black;
-        font-weight: bold;
-        font-size: 1.4em ;
+        color:$labelColor;
+        font-weight: $fontWeight;
+        font-size: $fontSize;
     }
     .btn{
-        width: 10%;
-        align-self:center;
-        height: 30px;
-        font-size: 1.3em;
-        background-color: cadetblue;
+        margin-top: $marginTop;
+        height:$btnHeight ;
+        width:$btnWidth;
+        border-radius: $borderRadius;
+        align-items:$alignItems;
+        font-size:$btnFontSize;
+        background-color:$btnBgColor;
+    }
+    .dropwdown
+    {
+        @include flex(row);
+        justify-content: space-evenly;
+    }
+    .dropdown-select
+    {
+        width: 20%;
+        margin-left:$marginExtraTop;
+        border-radius: $borderRadius;
+        height: $inpHeight;
+        color: $textColor;
+        font-size: $fontSize;
+        background-color:lightgray;
     }
 }

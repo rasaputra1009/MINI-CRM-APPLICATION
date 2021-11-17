@@ -7,13 +7,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { hot } from 'react-hot-loader/root';
+import '../../sass/reset.scss';
 
 import Router from 'pages';
 
 function App({ match }) {
-  return (
-    <Router match={match} />
-  );
+  return <Router match={match} />;
 }
 
 App.propTypes = {

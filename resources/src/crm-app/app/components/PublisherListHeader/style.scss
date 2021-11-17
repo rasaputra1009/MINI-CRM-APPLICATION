@@ -1,25 +1,24 @@
+@import '../../sass/variables.scss';
+
 .publisherHeader
 {
-    display: flex;
-    flex-direction: row;
+    @include flex(row);
     justify-content: space-between;
-    padding: 10px;
+    padding: $padding;
     .title{
-        font-size: 1.2em;
-        font-weight: bold;
+        font-size:$fontSize;
+        font-weight:$fontWeight;
     }
     .publisherHeaderRight{
-        display: flex;
-            flex-direction: row;
-            justify-content: space-between;
+        @include flex(row);
+        justify-content: space-between;
         .createBtn
         {
-            background-color: blue;
-            padding: 10px;
-            font: 1em sans-serif;
             color: white;
-            margin-right: 20px;
-            border-radius: 5px;
+            margin-right:$marginRight;
+            padding:10px;
+            background-color:blue;
+            border-radius: $borderRadius;
         }
     }
 }
