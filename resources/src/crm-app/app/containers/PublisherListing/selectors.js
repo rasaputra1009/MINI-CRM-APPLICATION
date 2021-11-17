@@ -26,6 +26,11 @@ const makeSelectSearch = () =>
     selectPublisherListingDomain,
     publisherListing => publisherListing.search,
   );
+const makeSelectAssignedUser = () =>
+  createSelector(
+    selectPublisherListingDomain,
+    publisherListing => publisherListing.assigned_user,
+  );
 
 const makeSelectError = () =>
   createSelector(
@@ -80,4 +85,5 @@ export {
   makeSelectUserRole,
   makeSelectSearchPublishers,
   makeSelectUser,
+  makeSelectAssignedUser,
 };

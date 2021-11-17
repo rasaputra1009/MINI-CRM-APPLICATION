@@ -17,6 +17,7 @@ export const initialState = {
   publishers: [],
   searchpublishers: [],
   search: '',
+  users: [],
   delete: false,
   loading: false,
   error: false,
@@ -25,6 +26,7 @@ export const initialState = {
     user: '',
     userrole: '',
   },
+  assigned_user: '',
 };
 
 const publisherListingSlice = createSlice({
@@ -36,6 +38,9 @@ const publisherListingSlice = createSlice({
     },
     updateFilter(state, { payload }) {
       state.filter = payload;
+    },
+    updateAssigned(state, { payload }) {
+      state.assigned_user = payload;
     },
     searchPublishers(state) {
       state.searchpublishers = [];
@@ -70,11 +75,23 @@ const publisherListingSlice = createSlice({
     loadUserInfoError(state, { payload }) {
       state.error = payload;
     },
+    loadUsers(state) {
+      state.loading = true;
+      state.error = false;
+      state.users = [];
+    },
+    loadUsersSuccess(state, { payload }) {
+      state.users = payload;
+      state.loading = false;
+    },
+    loadUsersError(state) {
+      state.loading = false;
+      state.error = true;
+    },
   },
 });
 
 export const {
-  loadUsersSuccess,
   searchPublishers,
   searchPublishersSuccess,
   searchPublishersError,
@@ -83,9 +100,13 @@ export const {
   deletePublisherSuccess,
   updateSearch,
   updateFilter,
+  updateAssigned,
   loadUserInfo,
   loadUserInfoSuccess,
   loadUserInfoError,
+  loadUsers,
+  loadUsersError,
+  loadUsersSuccess,
 } = publisherListingSlice.actions;
 
 export const { reducer } = publisherListingSlice;

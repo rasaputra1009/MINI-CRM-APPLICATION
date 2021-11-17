@@ -4,7 +4,7 @@
    @include flex(column);
    align-items: center;
     justify-content: $justifyContent;
-    border: 2px solid $borderColor;
+    // border: 2px solid $borderColor;
     margin-top:$marginExtraTop;
     border-radius: $borderRadius;
     .head

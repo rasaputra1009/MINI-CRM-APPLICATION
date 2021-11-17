@@ -27,6 +27,7 @@ import {
   searchPublishers,
   deletePublisher,
   loadUserInfoSuccess,
+  loadUsers,
 } from './slice';
 import saga from './saga';
 import './style.scss';
@@ -64,6 +65,7 @@ function PublisherListing() {
 
   useEffect(() => {
     const data = getCookie(document.cookie);
+    dispatch(loadUsers());
     dispatch(loadUserInfoSuccess(data));
     dispatch(searchPublishers()); // load all publishers
   }, []);

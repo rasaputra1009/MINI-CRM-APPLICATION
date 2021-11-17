@@ -12,21 +12,24 @@ import {
   updateSearch,
   updateFilter,
   searchPublishers,
+  updateAssigned,
 } from 'containers/PublisherListing/slice';
 import {
   makeSelectPublishers,
   makeSelectSearch,
   makeSelectSearchPublishers,
+  makeSelectUsers,
 } from 'containers/PublisherListing/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 const stateSelector = createStructuredSelector({
   publisherListing: makeSelectPublishers(),
   search: makeSelectSearch(),
+  users: makeSelectUsers(),
 });
 
 function PublisherListSearch() {
   const dispatch = useDispatch();
-  const { publisherListing, search } = useSelector(stateSelector);
+  const { publisherListing, search, users } = useSelector(stateSelector);
   const changeSearch = e => {
     dispatch(updateSearch(e.target.value));
     dispatch(searchPublishers());
@@ -34,36 +37,36 @@ function PublisherListSearch() {
   const selectAttribute = e => {
     dispatch(updateFilter(e.target.value));
   };
+  const selectUser = e => {
+    dispatch(updateAssigned(e.target.value));
+    dispatch(searchPublishers());
+  };
   return (
     <div className="publisherSearch">
-      <label htmlFor="attribute" className="search">
-        Search by:
-      </label>
       <select
         name="attribute"
         id="attribute"
         onChange={selectAttribute}
         className="dropdown-select"
       >
+        <option value="name">Search By</option>
         <option value="name">Name</option>
         <option value="email">Email Id</option>
         <option value="phone">Phone</option>
         <option value="website">Website</option>
         <option value="assigned_to">Assigned User</option>
       </select>
+      <input type="search" placeholder="Search Here" onChange={changeSearch} />
       <select
         name="attribute"
-        id="attribute"
-        onChange={selectAttribute}
         className="dropdown-assigned"
+        onChange={selectUser}
       >
-        <option>Assigned_to</option>
-        <option value="assigned_to">Usertwo</option>
-        <option value="assigned_to">Userthree</option>
-        <option value="assigned_to">Userfour</option>
-        <option value="assigned_to">Userfive</option>
+        <option>None</option>
+        {users.map(user => (
+          <option value={user}>{user}</option>
+        ))}
       </select>
-      <input type="search" placeholder="Search Here" onChange={changeSearch} />
     </div>
   );
 }

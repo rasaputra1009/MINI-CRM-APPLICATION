@@ -11,26 +11,44 @@ import {
   deletePublisherSuccess,
   deletePublisherError,
   loadUserInfo,
-  loadUsersSuccess,
   loadUserInfoError,
   loadUserInfoSuccess,
+  loadUsers,
+  loadUsersSuccess,
+  loadUsersError,
 } from './slice';
-import { makeSelectSearch, makeSelectId, makeSelectFilter } from './selectors';
+import {
+  makeSelectSearch,
+  makeSelectId,
+  makeSelectFilter,
+  makeSelectAssignedUser,
+} from './selectors';
 
 // Individual exports for testing
-export function* getUserInfo() {
-  const requestURL = `/url/user`;
+// export function* getUserInfo() {
+//   const requestURL = `/url/user`;
+//   try {
+//     const [data] = yield call(request, requestURL);
+//     yield put(loadUserInfoSuccess(data));
+//   } catch (err) {
+//     yield put(loadUserInfoError(err));
+//   }
+// }
+export function* getAllUsers() {
+  // console.log('API CALL');
+  const requestURL = '/url/users';
   try {
-    const [data] = yield call(request, requestURL);
-    yield put(loadUserInfoSuccess(data));
+    const [users] = yield call(request, requestURL);
+    yield put(loadUsersSuccess(users.Users));
   } catch (err) {
-    yield put(loadUserInfoError(err));
+    yield put(loadUsersError(err));
   }
 }
 export function* getSearchPublisherData() {
   const search = yield select(makeSelectSearch());
   const filter = yield select(makeSelectFilter());
-  const requestURL = `/api/crm/publishers?${filter}=${search}`;
+  const assigned = yield select(makeSelectAssignedUser());
+  const requestURL = `/api/crm/publishers?${filter}=${search}&assigned_to=${assigned}`;
   try {
     const publishers = yield call(request, requestURL);
     yield put(searchPublishersSuccess(publishers));
@@ -49,8 +67,11 @@ export function* deletePublisherdataa() {
   }
 }
 
-export function* getUsersData() {
-  yield takeLatest(loadUserInfo.type, getUserInfo);
+// export function* getUsersData() {
+//   yield takeLatest(loadUserInfo.type, getUserInfo);
+// }
+export function* getUsers() {
+  yield takeLatest(loadUsers.type, getAllUsers);
 }
 export function* getSearchPublishersData() {
   yield takeLatest(searchPublishers.type, getSearchPublisherData);
@@ -59,5 +80,10 @@ export function* deletePublisherData() {
   yield takeLatest(deletePublisher.type, deletePublisherdataa);
 }
 export default function* publisherListingSaga() {
-  yield all([getSearchPublishersData(), getUsersData(), deletePublisherData()]);
+  yield all([
+    getSearchPublishersData(),
+    // getUsersData(),
+    deletePublisherData(),
+    getUsers(),
+  ]);
 }

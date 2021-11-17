@@ -3,12 +3,6 @@
 {
     @include flex(row);
     justify-content: space-between;
-    align-items: $alignItems;
-    .search
-    {
-        font-size: $fontSize;
-        margin-left:$marginLeft;
-    }
      input{
         width:$btnWidth;
         height: $inpHeight;
@@ -29,7 +23,7 @@
     .dropdown-assigned
     {
         width:$dropDownWidth;
-        margin-left:$marginExtraTop;
+        margin-right:$marginExtraTop;
         border-radius: $borderRadius;
         height: $inpHeight;
         color: $textColor;

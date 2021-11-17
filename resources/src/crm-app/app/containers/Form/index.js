@@ -62,7 +62,6 @@ function Form() {
     stateSelector,
   );
   const dispatch = useDispatch();
-  // const userss = ['userone', 'usertwo'];
   useEffect(() => {
     dispatch(loadUsers());
     if (id) {
