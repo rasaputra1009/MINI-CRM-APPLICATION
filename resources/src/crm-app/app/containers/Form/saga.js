@@ -14,13 +14,13 @@ import {
   getDataError,
   editData,
   editDataSuccess,
-  editDataError,
   updateState,
   loadUsers,
   loadUsersSuccess,
   loadUsersError,
   updateValidationErrors,
 } from './slice';
+/***GET ALL USERS ***/
 export function* getAllUsers() {
   const requestURL = '/url/users';
   try {
@@ -30,6 +30,8 @@ export function* getAllUsers() {
     yield put(loadUsersError(err));
   }
 }
+
+/***CREATE A PUBLISHER ***/
 export function* postData() {
   const form = yield select(makeSelectForm());
   try {
@@ -41,6 +43,7 @@ export function* postData() {
     yield put(dataPostError(error));
   }
 }
+/***GET PUBLISHERS DATA TO EDIT OR TO DISPLAY ***/
 export function* getPublisherData() {
   const id = yield select(makeSelectId());
   const requestURL = `/api/crm/publisher/${id}`;
@@ -52,6 +55,8 @@ export function* getPublisherData() {
     yield put(getDataError(err));
   }
 }
+
+/*** UPDATE PUBLISHER DATA ***/
 export function* updateData() {
   const id = yield select(makeSelectId());
   const form = yield select(makeSelectForm());
@@ -63,6 +68,7 @@ export function* updateData() {
     yield put(updateValidationErrors(error.response.data.errors));
   }
 }
+
 export function* getUsers() {
   yield takeLatest(loadUsers.type, getAllUsers);
 }
@@ -75,6 +81,8 @@ export function* getPublisher() {
 export function* editPublisher() {
   yield takeLatest(editData.type, updateData);
 }
+
+
 export default function* formSaga() {
   yield all([getUsers(), postPublisher(), getPublisher(), editPublisher()]);
 }

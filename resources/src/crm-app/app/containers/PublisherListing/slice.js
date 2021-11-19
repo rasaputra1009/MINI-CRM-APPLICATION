@@ -42,6 +42,7 @@ const publisherListingSlice = createSlice({
       state.assigned_user = payload;
     },
     searchPublishers(state) {
+      state.loading=true;
       state.searchpublishers = [];
     },
     searchPublishersSuccess(state, { payload }) {

@@ -17,7 +17,7 @@ class AuthMiddleWare
      */
     public function handle(Request $request, Closure $next)
     {
-        // sleep(2);
+        sleep(1);
         $path=$request->path();
         if($path=='crm/login' && Session::get('user'))
         {

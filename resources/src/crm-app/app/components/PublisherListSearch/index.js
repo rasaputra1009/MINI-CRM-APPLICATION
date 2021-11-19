@@ -52,7 +52,6 @@ function PublisherListSearch() {
         <option value="email">Email Id</option>
         <option value="phone">Phone</option>
         <option value="website">Website</option>
-        <option value="assigned_to">Assigned User</option>
       </select>
       <input type="search" placeholder="Search Here" onChange={changeSearch} />
       <select
@@ -60,7 +59,7 @@ function PublisherListSearch() {
         className="dropdown-assigned"
         onChange={selectUser}
       >
-        <option>None</option>
+        <option>Select User</option>
         {users.map(user => (
           <option value={user}>{user}</option>
         ))}

@@ -12,7 +12,7 @@ import {
 
 import {
   reducer,updateState,updateName,updateEmail,updatePhone,updateWebsite,updateAssignedTo,dataPost,
-  getData,loadUsers,editData,getDataError,
+  getData,loadUsers,editData,getDataError, updateValidationErrors,
 } from './slice';
 
 const stateSelector = createStructuredSelector({
@@ -52,6 +52,7 @@ function Form() {
           } 
           else {
             dispatch(updateState({name: '',email: '',phone: '',website: '',assigned_to: '',}),);
+            dispatch(updateValidationErrors({name: '',email: '',phone: '',website: '',assigned_to: ''}));
           }
     }, []);
 
@@ -86,9 +87,11 @@ function Form() {
 
   return (
     <div>
+      
       <div className="detailsEdit">
         <button onClick={updateEdit}>Edit</button>
       </div>
+      
       {loading ? (<span className="loading">Loading....</span>) : (
 
         <form className="publisherForm" onSubmit={formSubmit}>
@@ -118,7 +121,6 @@ function Form() {
                 {users.map(user => ( <option value={user}>{user}</option> ))}
               </select>
           </div>
-
           <input type="submit" className="btn" disabled={id && !edit} />
         </form>
       )}

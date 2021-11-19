@@ -19,16 +19,12 @@ function PublisherListing() {
   const dispatch = useDispatch();
   useInjectReducer({ key: 'publisherListing', reducer });
   useInjectSaga({ key: 'publisherListing', saga });
-
-  /* eslint-disable no-unused-vars */
   const {
     searchpublisherslist,
     userrole,
     user,
     loading,
   } = useSelector(stateSelector);
-  /* eslint-enable no-unused-vars */
-
   const getCookie = payload => {
     payload = payload.split('; ');
     const result = {};
@@ -48,14 +44,17 @@ function PublisherListing() {
 
   const removePublisher = id => {
     dispatch(deletePublisher(id));
-    dispatch(searchPublishers());
+    setTimeout(()=>{
+      dispatch(searchPublishers());
+    },500);
   };
 
   return (
     <div className="section">
       {loading ? (
-        <span className="loading">Loading....</span>
+        <span className="loading">Loading!!!</span>
       ) : (
+        (searchpublisherslist.length===0 ?<span className="loading">No Data Found</span>:
         <table>
           <thead className="thead">
             <tr>
@@ -112,7 +111,7 @@ function PublisherListing() {
             ))}
           </tbody>
         </table>
-      )}
+      ))}
     </div>
   );
 }

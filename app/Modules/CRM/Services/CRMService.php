@@ -86,7 +86,7 @@ class CRMService {
             return $dataAll;
         }
         else{
-            if($assigned==='None') $assigned='';
+            if($assigned==='Select User') $assigned='';
             $data=Publisher::where('assigned_to','like','%'.$assigned.'%')->where($filter,'like','%'.$search.'%')->orderBy('name')->get();
             return $data;
         }
