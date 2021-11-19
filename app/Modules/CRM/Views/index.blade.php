@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CRM PublisherListing Header</title>
+    <title>CRM</title>
    <link rel="stylesheet" href="{{normalize_chunks('/build/crm-app/main.css')}}">
 </head>
 <body>

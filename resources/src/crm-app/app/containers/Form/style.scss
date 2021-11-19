@@ -1,4 +1,26 @@
 @import '../../sass/variables.scss';
+.detailsEdit
+{
+    @include flex(row);
+    justify-content: flex-end;
+    margin-top:$marginTop;
+    margin-right: 150px;
+    button{
+        background-color: yellowgreen;
+        border-radius: $borderRadius;
+        font-size: $fontSize;
+        color:$textColor;
+        outline: $outline;
+    }
+}
+.loading
+{
+    @include flex(row);
+    font-size: 1.5em;
+    font-weight: $fontWeight;
+    justify-content: $justifyContent;
+}
+
 .publisherForm
 {
    @include flex(column);
@@ -26,6 +48,10 @@
         align-items:$alignItems;
         font-size:$btnFontSize;
         background-color:$btnBgColor;
+    }
+    .error
+    {
+        color: red;
     }
     .dropwdown
     {

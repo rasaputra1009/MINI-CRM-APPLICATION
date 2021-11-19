@@ -21,8 +21,16 @@ export const initialState = {
   post: false,
   edit: false,
   error: false,
+  errorMessage: '',
   loading: false,
   users: [],
+  validationErrors: {
+    name: '',
+    email: '',
+    phone: '',
+    website: '',
+    assigned_to: '',
+  },
 };
 const formSlice = createSlice({
   name: 'form',
@@ -51,6 +59,14 @@ const formSlice = createSlice({
       state.website = payload.website;
       state.assigned_to = payload.assigned_to;
     },
+    updateValidationErrors: (state, { payload }) => {
+      // state.validationErros.name = payload.name;
+      // state.validationErros.email = payload.email;
+      // state.validationErros.phone = payload.phone;
+      // state.validationErros.website = payload.website;
+      // state.validationErros.assigned_to = payload.assigned_to;
+      state.validationErrors = payload;
+    },
     dataPost(state) {
       state.post = true;
       state.error = false;
@@ -66,13 +82,16 @@ const formSlice = createSlice({
       state.id = payload;
       state.post = true;
       state.error = false;
+      state.loading = true;
     },
     getDataSuccess(state) {
       state.post = false;
+      state.loading = false;
     },
     getDataError(state) {
       state.error = true;
       state.post = false;
+      state.loading = false;
     },
     editData(state, { payload }) {
       state.id = payload;
@@ -82,21 +101,19 @@ const formSlice = createSlice({
     editDataSuccess(state) {
       state.edit = false;
     },
-    editDataError(state) {
+    editDataError(state, { payload }) {
+      state.errorMessage = payload;
       state.error = true;
       state.edit = false;
     },
     loadUsers(state) {
-      state.loading = true;
       state.error = false;
       state.users = [];
     },
     loadUsersSuccess(state, { payload }) {
       state.users = payload;
-      state.loading = false;
     },
     loadUsersError(state) {
-      state.loading = false;
       state.error = true;
     },
   },
@@ -121,6 +138,7 @@ export const {
   loadUsers,
   loadUsersSuccess,
   loadUsersError,
+  updateValidationErrors,
 } = formSlice.actions;
 
 export const { reducer } = formSlice;

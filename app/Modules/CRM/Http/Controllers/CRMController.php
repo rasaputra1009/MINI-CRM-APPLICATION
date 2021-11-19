@@ -4,15 +4,20 @@ use App\Publisher;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use CRM;
+use Exception;
 use Response;
-class CRMController extends Controller {
+Class CRMController extends Controller {
 	public function index()
 	{	
 		return view('Crm::index');
 	}
 	function login(Request $request)
     {
-        return CRM::login($request->all());
+			$error=$request->validate([
+				'username' => 'required',
+				'password'=>'required',
+			]);
+		return CRM::login($request->all());
     }
 	function logout()
     {
@@ -37,19 +42,20 @@ class CRMController extends Controller {
 	public function search(Request $request)
 	{
 			$res=$request->all();
-			if(count($res)>0)
-			{
-				$search=$res['search'];
-				$filter=$res['filter'];
-				return CRM::searchPublishers($filter,$search);	
-			}
-			else{
-				return CRM::searchPublishers('');
-			}
+			$filter= array_keys( $res);
+			$search=array_values($res);
+			return CRM::searchPublishers($filter[0],$search[0],$search[1]);
 	}
 	public function create(Request $request)
 	{
-		return CRM::createPublisher($request->all());
+		$error=$request->validate([
+			'name' => 'bail|required|max:255',
+			'email' => 'bail|required|email',
+			'phone' => 'bail|required|size:10',
+			'website' => 'bail|required|url',
+			'assigned_to' => 'bail|required|max:255',
+		]);
+			return CRM::createPublisher($request->all());
 	}
 	public function readInfo($username)
 	{
@@ -57,6 +63,13 @@ class CRMController extends Controller {
 	}
 	public function update(Request $request,$id)
 	{
+		$request->validate([
+			'name' => 'bail|required|max:255',
+			'email' => 'bail|required|email',
+			'phone' => 'bail|required|size:10',
+			'website' => 'bail|required|url',
+			'assigned_to' => 'bail|required|max:255',
+		]);
 		return CRM::updatepublisher($request->all(),$id);
 	}
 	public function delete($id)

@@ -27,6 +27,14 @@
           align-items: center;
           background-color:white ;
       }
+      .loading
+      {
+          @include flex(row);
+          margin-top: $marginTop;
+          font-size: 1.5em;
+          font-weight: $fontWeight;
+          justify-content: $justifyContent;
+      }
       .name
       {
         color: blue;
@@ -36,11 +44,20 @@
       {
         color: blue;
       }
-      .edit
+      .disable
+      {
+        background-color:white;
+      }
+       .edit
       {
           color:white;
           border-radius: $borderRadius;
           background-color: yellowgreen;
+      }
+      [disabled] {
+        opacity: 0.25;
+        color: #000;
+        background-color: white;
       }
       .delete
       {

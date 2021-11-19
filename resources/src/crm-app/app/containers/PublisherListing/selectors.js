@@ -1,20 +1,9 @@
 import { createSelector } from 'reselect';
 import { initialState } from './slice';
 
-/**
- * Direct selector to the publisherListing state domain
- */
-
 const selectPublisherListingDomain = state =>
   state.publisherListing || initialState;
 
-/**
- * Other specific selectors
- */
-
-/**
- * Default selector used by PublisherListing
- */
 
 const makeSelectLoading = () =>
   createSelector(
@@ -47,12 +36,6 @@ const makeSelectFilter = () =>
     selectPublisherListingDomain,
     publisherListing => publisherListing.filter,
   );
-
-const makeSelectPublishers = () =>
-  createSelector(
-    selectPublisherListingDomain,
-    publisherListing => publisherListing.publishers,
-  );
 const makeSelectSearchPublishers = () =>
   createSelector(
     selectPublisherListingDomain,
@@ -77,7 +60,6 @@ export {
   selectPublisherListingDomain,
   makeSelectLoading,
   makeSelectError,
-  makeSelectPublishers,
   makeSelectUsers,
   makeSelectId,
   makeSelectFilter,

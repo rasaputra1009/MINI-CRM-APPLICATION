@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Publisher;
 use App\User;
 use Cookie;
+use Response;
 
 class CRMService {
     private $repository = null; 
@@ -20,24 +21,28 @@ class CRMService {
     }
     public function login($payload)
     {
-        $email=$payload['email'];
+        $user=$payload['username'];
         $password=$payload['password'];
+        $userInfo = User::where('username', '=',$user)->first();
+        $email=$userInfo['email'];
         if (Auth::attempt(['email'=>$email,'password'=>$password])) 
         {
-            $userInfo = User::where('email', '=',$email)->first();
             $role=$userInfo['userrole'];
-            $user=$userInfo['username'];
             \Session::put(['email'=>$email,'user'=>$user,'userrole'=>$role]);
             \Session::save();
+            setcookie("userrole", $role);
+            setcookie("username",$user);
             return redirect('/crm/home');
         }
         else{
-            return response()->json(["message" => "Login Failed",],401);
+            return Response::json(['message'=>"Login Failed"], 401);
         }
     }
     function logout()
     {
         \Session::flush();
+        setcookie("userrole","",time()-3600);
+        setcookie("username","",time()-3600);
         return redirect('/crm/login');
     }
     public function readUserInfo()
@@ -54,14 +59,21 @@ class CRMService {
     }
     public function readUsers()
     {   
-        $users=User::all()->pluck('username');
-		return response()->json([
-            $data=[
-                "Users"=>$users
-            ]
-        ]);
+        $check=session()->all();
+        if(array_key_exists('user',$check))
+        {
+            $users=User::all()->pluck('username');
+            return response()->json([
+                $data=[
+                    "Users"=>$users
+                ]
+            ]);   
+        }
+        else{
+            return Response::json(['message'=>"Access Denied"], 403);
+        }
     }
-    public function searchPublishers($filter,$search)
+    public function searchPublishers($filter,$search,$assigned)
     {
         $check=session()->all();
         $user=$check['user'];
@@ -71,11 +83,11 @@ class CRMService {
         {
             $dataAll=Publisher::where('assigned_to','=',$userInfo['username'])->
                                 where($filter,'like','%'.$search.'%')->orderBy('name')->get();
-            // dd($dataAll);
             return $dataAll;
         }
         else{
-            $data=Publisher::where($filter,'like','%'.$search.'%')->orderBy('name')->get();
+            if($assigned==='None') $assigned='';
+            $data=Publisher::where('assigned_to','like','%'.$assigned.'%')->where($filter,'like','%'.$search.'%')->orderBy('name')->get();
             return $data;
         }
     }
@@ -89,45 +101,53 @@ class CRMService {
     
         $check=session()->all();
         $user=$check['user'];
+        $userrole=$check['userrole'];
         $data=Publisher::find($id);
-        $data->name=$payload['name'];
-        $data->email=$payload['email'];
-        $data->phone=$payload['phone'];
-        $data->website=$payload['website'];
-        $data->assigned_to=$payload['assigned_to'];
-        $data->save();
-        // $data->update($payload);
-        return "Updated";
-    //    if(data['assigned_to']===$user)
-    //    {
-    //           $data=Publisher::find($id);
-    //         $data->name=$payload['name'];
-    //         $data->email=$payload['email'];
-    //         $data->phone=$payload['phone'];
-    //         $data->website=$payload['website'];
-    //         $data->assigned_to=$payload['assigned_to'];
-    //         $data->save();
-	// 	    return "Updated Successfully";
-    //    }
-    //    else{
-    //     return Response::json([
-    //         'message'=>"Access Denied"
-    //     ], 403);
-    //    }
+        if($userrole==='admin')
+        {
+            $data->update($payload);
+            return "Updated Successfully";
+        }
+       else if(($userrole==='salesrep' || $userrole==='account')&&($data['assigned_to']===$user))
+       {
+                $data->update($payload);
+                return "Updated Successfully";
+       }
+       else{
+            return Response::json(['message'=>"Access Denied"], 403);
+       }
     }
     public function deletepublisher($id)
     {
-        $publisher = Publisher::find($id);
-        $publisher->delete();
-        return "Deleeted";
+        $check=session()->all();
+        $user=$check['user'];
+        $userrole=$check['userrole'];
+        if($userrole==='admin')
+        {
+            $publisher = Publisher::find($id);
+            $publisher->delete();
+            return "Deleeted";
+        }
+        else{
+            return Response::json(['message'=>"Access Denied"], 403);
+        }
     }
     public function createPublisher($payload)
     {
-        $data= Publisher::create($payload);
-        return response()->json([
-            "message" => "Data Added Successfully",
-            "data" => $data
-        ]);
+        $check=session()->all();
+        $user=$check['user'];
+        $userrole=$check['userrole'];
+        if($userrole==='admin')
+        {
+                $data= Publisher::create($payload);
+                return response()->json([
+                    "message" => "Data Added Successfully",
+                    "data" => $data
+                ]);
+        }
+        else{
+            return Response::json(['message'=>"Access Denied"], 403);   
+        }
         // return redirect()->intended('/crm/home');
     }
 }

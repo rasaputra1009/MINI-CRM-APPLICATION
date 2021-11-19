@@ -14,7 +14,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 export const initialState = {
   id: '',
-  publishers: [],
   searchpublishers: [],
   search: '',
   users: [],
@@ -92,15 +91,15 @@ const publisherListingSlice = createSlice({
 });
 
 export const {
+  updateSearch,
+  updateFilter,
+  updateAssigned,
   searchPublishers,
   searchPublishersSuccess,
   searchPublishersError,
   deletePublisher,
   deletePublisherError,
   deletePublisherSuccess,
-  updateSearch,
-  updateFilter,
-  updateAssigned,
   loadUserInfo,
   loadUserInfoSuccess,
   loadUserInfoError,

@@ -1,7 +1,9 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-unused-vars */
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import request from 'utils/request';
 import axios from 'axios';
+import { push } from 'react-router-redux';
 import { makeSelectForm, makeSelectName, makeSelectId } from './selectors';
 import {
   dataPost,
@@ -17,6 +19,7 @@ import {
   loadUsers,
   loadUsersSuccess,
   loadUsersError,
+  updateValidationErrors,
 } from './slice';
 export function* getAllUsers() {
   const requestURL = '/url/users';
@@ -32,7 +35,9 @@ export function* postData() {
   try {
     yield call(axios.post, '/api/crm/publisher', form);
     yield put(dataPosted({ post: true }));
+    yield put(push('/crm/home'));
   } catch (error) {
+    yield put(updateValidationErrors(error.response.data.errors));
     yield put(dataPostError(error));
   }
 }
@@ -42,6 +47,7 @@ export function* getPublisherData() {
   try {
     const publisher = yield call(request, requestURL);
     yield put(updateState(publisher[0]));
+    yield put(getDataSuccess());
   } catch (err) {
     yield put(getDataError(err));
   }
@@ -52,8 +58,9 @@ export function* updateData() {
   try {
     yield call(axios.put, `/api/crm/publisher/${id}`, form);
     yield put(editDataSuccess({ post: true }));
+    yield put(push('/crm/home'));
   } catch (error) {
-    yield put(editDataError(error));
+    yield put(updateValidationErrors(error.response.data.errors));
   }
 }
 export function* getUsers() {

@@ -15,27 +15,25 @@ import {
   updateAssigned,
 } from 'containers/PublisherListing/slice';
 import {
-  makeSelectPublishers,
   makeSelectSearch,
   makeSelectSearchPublishers,
   makeSelectUsers,
 } from 'containers/PublisherListing/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 const stateSelector = createStructuredSelector({
-  publisherListing: makeSelectPublishers(),
   search: makeSelectSearch(),
   users: makeSelectUsers(),
 });
 
 function PublisherListSearch() {
   const dispatch = useDispatch();
-  const { publisherListing, search, users } = useSelector(stateSelector);
+  const {search, users } = useSelector(stateSelector);
+  const selectAttribute = e => {
+    dispatch(updateFilter(e.target.value));
+  };
   const changeSearch = e => {
     dispatch(updateSearch(e.target.value));
     dispatch(searchPublishers());
-  };
-  const selectAttribute = e => {
-    dispatch(updateFilter(e.target.value));
   };
   const selectUser = e => {
     dispatch(updateAssigned(e.target.value));
@@ -71,5 +69,3 @@ function PublisherListSearch() {
   );
 }
 export default PublisherListSearch;
-
-PublisherListSearch.propTypes = {};
