@@ -55,7 +55,7 @@ Class CRMController extends Controller {
 			'website' => 'bail|required|url',
 			'assigned_to' => 'bail|required|max:255',
 		]);
-			return CRM::createPublisher($request->all());
+		return CRM::createPublisher($request->all());
 	}
 	public function readInfo($id)
 	{

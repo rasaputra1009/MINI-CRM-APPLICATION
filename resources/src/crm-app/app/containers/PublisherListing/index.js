@@ -16,6 +16,7 @@ const stateSelector = createStructuredSelector({
 });
 
 function PublisherListing() {
+  
   const dispatch = useDispatch();
   useInjectReducer({ key: 'publisherListing', reducer });
   useInjectSaga({ key: 'publisherListing', saga });
