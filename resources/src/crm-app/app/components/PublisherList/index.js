@@ -16,6 +16,5 @@ function PublisherList() {
   );
 }
 
-PublisherList.propTypes = {};
 
 export default PublisherList;

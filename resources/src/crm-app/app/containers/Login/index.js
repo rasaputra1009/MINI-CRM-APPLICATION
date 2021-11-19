@@ -37,7 +37,7 @@ function Login() {
     dispatch(updatePassword(e.target.value));
   };
   return (
-    <div>
+    <div className="login-form">
       <form className="form" method="post" action="/crm/login">
         <h1 className="head">Login Here</h1>
         <label htmlFor="username">Username</label>
@@ -57,7 +57,6 @@ function Login() {
           required
         />
         <input type="submit" className="btn" />
-        {/* {post ? <Redirect to="/crm/home" /> : <Redirect to="/crm/login" />} */}
       </form>
     </div>
   );

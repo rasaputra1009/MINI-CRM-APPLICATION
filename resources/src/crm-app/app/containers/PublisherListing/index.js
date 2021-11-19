@@ -52,7 +52,7 @@ function PublisherListing() {
   return (
     <div className="section">
       {loading ? (
-        <span className="loading">Loading!!!</span>
+        <span className="loading">Loading...</span>
       ) : (
         (searchpublisherslist.length===0 ?<span className="loading">No Data Found</span>:
         <table>
@@ -94,7 +94,7 @@ function PublisherListing() {
                         userrole === 'salesrep' && !(item.assigned_to === user)
                       }
                     >
-                      Edit
+                     Edit
                     </button>
                   </td>
                 </Link>

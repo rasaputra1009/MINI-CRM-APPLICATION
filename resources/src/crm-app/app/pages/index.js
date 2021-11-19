@@ -8,6 +8,7 @@ import CreateCustomerPage from 'pages/CreateCustomerPage';
 import LoginPage from 'pages/LoginPage';
 import './style.scss';
 import Form from 'containers/Form';
+import NotFound from './NotFoundPage';
 
 function Router({ match }) {
   return (
@@ -17,6 +18,7 @@ function Router({ match }) {
       <Route path="/crm/edit/:id" component={CreateCustomerPage} />
       <Route path="/crm/login" component={LoginPage} />
       <Route path="/crm/details/:id" component={Form} />
+      <Route path="/crm/notfound" component={NotFound} />
     </Switch>
   );
 }

@@ -6,9 +6,8 @@
     margin-top:$marginTop;
     margin-right: 150px;
     button{
-        background-color: yellowgreen;
+        background-color:orange;
         border-radius: $borderRadius;
-        font-size: $fontSize;
         color:$textColor;
         outline: $outline;
     }
@@ -51,21 +50,22 @@
     }
     .error
     {
-        color: red;
+        color:orangered;
     }
-    .dropwdown
+    .dropdown
     {
         @include flex(row);
-        justify-content: space-evenly;
+        justify-content: space-around;
     }
     .dropdown-select
     {
         width: 20%;
         margin-left:$marginExtraTop;
+        outline: $outline;
         border-radius: $borderRadius;
         height: $inpHeight;
         color: $textColor;
         font-size: $fontSize;
-        background-color:lightgray;
+        background-color:lightyellow;
     }
 }

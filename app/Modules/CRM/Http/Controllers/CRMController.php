@@ -51,22 +51,22 @@ Class CRMController extends Controller {
 		$error=$request->validate([
 			'name' => 'bail|required|max:255',
 			'email' => 'bail|required|email',
-			'phone' => 'bail|required|size:10',
+			'phone' => 'bail|required|digits:10|numeric',
 			'website' => 'bail|required|url',
 			'assigned_to' => 'bail|required|max:255',
 		]);
 			return CRM::createPublisher($request->all());
 	}
-	public function readInfo($username)
+	public function readInfo($id)
 	{
-		return CRM::readPublisher($username);
+		return CRM::readPublisher($id);
 	}
 	public function update(Request $request,$id)
 	{
 		$request->validate([
 			'name' => 'bail|required|max:255',
 			'email' => 'bail|required|email',
-			'phone' => 'bail|required|size:10',
+			'phone' => 'bail|required|digits:10|numeric',
 			'website' => 'bail|required|url',
 			'assigned_to' => 'bail|required|max:255',
 		]);

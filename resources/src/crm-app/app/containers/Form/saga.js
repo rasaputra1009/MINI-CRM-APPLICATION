@@ -52,6 +52,7 @@ export function* getPublisherData() {
     yield put(updateState(publisher[0]));
     yield put(getDataSuccess());
   } catch (err) {
+    yield put(push('/crm/notfound'));
     yield put(getDataError(err));
   }
 }
@@ -65,7 +66,13 @@ export function* updateData() {
     yield put(editDataSuccess({ post: true }));
     yield put(push('/crm/home'));
   } catch (error) {
-    yield put(updateValidationErrors(error.response.data.errors));
+    if(error.response.status===403) 
+    {
+      yield put(push('/crm/notfound')); 
+    }
+    else{
+      yield put(updateValidationErrors(error.response.data.errors));
+    }
   }
 }
 

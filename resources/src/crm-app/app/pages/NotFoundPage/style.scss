@@ -1,0 +1,23 @@
+@import '../../sass/variables.scss';
+.notfound
+{
+        .notfoundtitle
+        {
+            @include flex(row);
+            justify-content:$justifyContent;
+            font-size:2em;
+            font-weight: $fontWeight;
+            color:gray;
+        }
+        .btn
+        {
+            text-align:$alignItems;
+            font-size: $fontSize;
+            font-weight: $fontWeight;
+            text-decoration: none;
+            margin-top: $marginTop;
+            padding: $padding;
+            border-radius: $borderRadius;
+        }
+
+}

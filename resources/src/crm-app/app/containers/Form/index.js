@@ -84,12 +84,11 @@ function Form() {
     }
   };
 
-
   return (
     <div>
       
       <div className="detailsEdit">
-        <button onClick={updateEdit}>Edit</button>
+        {id && <button onClick={updateEdit}>Edit</button>}
       </div>
       
       {loading ? (<span className="loading">Loading....</span>) : (
@@ -106,11 +105,11 @@ function Form() {
           
           <label htmlFor="phone">Phone </label>
           {'phone' in errors && errors.phone !== '' ? (<span className="error">Please Enter Phone Number Correctly</span>) : ('')}
-          <input type="tel" value={phone} placeholder="Enter Phone Number" onChange={changePhone} disabled={id && !edit} required  />
+          <input type="tel"  pattern="[0-9]{10}" value={phone} placeholder="Enter Phone Number" onChange={changePhone} disabled={id && !edit} required  />
 
           <label htmlFor="website">Website</label>
           {'website' in errors && errors.website !== '' ? (<span className="error">Please Enter Website Correctly</span>) : ('')}
-          <input type="text" value={website}  placeholder="Enter Website Url" onChange={changeWebsite} disabled={id && !edit} required />
+          <input type="url" value={website}  placeholder="Enter Website Url" onChange={changeWebsite} disabled={id && !edit} required />
           
           <div className="dropdown">
               <label htmlFor="website">Assigned To:</label>

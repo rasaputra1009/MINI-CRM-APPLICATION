@@ -1,36 +1,48 @@
 @import '../../sass/variables.scss';
-.form
+.login-form
 {
-   @include flex(column);
-   align-items: center;
-    justify-content: $justifyContent;
-    // border: 2px solid $borderColor;
-    margin-top:$marginExtraTop;
-    border-radius: $borderRadius;
-    .head
+    @include flex(row);
+    justify-content: center;
+    .form
     {
-        margin-top: $marginTop;
-        margin-bottom: $marginBtm;
-        font-size: $fontSize;
-    }
-    input{
-        height: $height;
+        @include flex(column);
+        justify-content: $justifyContent;
+        border: 2px solid $borderColor;
         width: 50%;
+        background-color:#757575;
+        margin-top:$marginExtraTop;
         border-radius: $borderRadius;
-        margin-bottom:$marginBtm;
-        outline:$outline;
-    }
-    label
-    {
-        color:$labelColor;
-        font-weight: $fontWeight;
-        font-size: $fontSize;
-    }
-    .btn{
-        text-align:center;
-        height: $height;
-        width: 30%;
-        font-size:$fontSize;
-        background-color:$bgColor;
+        .head
+        {
+            margin-top: $marginTop;
+            margin-bottom: $marginBtm;
+            font-size: 2em;
+            margin-left: $marginLeft;
+            color:white;
+        }
+        input{
+            height: $height;
+            width: 50%;
+            border-radius: $borderRadius;
+            margin-bottom:$marginBtm;
+            outline:$outline;
+            margin-left: $marginLeft;
+        }
+        label
+        {
+            color:$labelColor;
+            font-weight: $fontWeight;
+            font-size: $fontSize;
+            color: white;
+            margin-left: $marginLeft;
+        }
+        .btn{
+            text-align:center;
+            height: $height;
+            width: 30%;
+            font-size:$fontSize;
+            margin-left: $marginLeft;
+            background-color:yellowgreen;
+        }
     }
 }

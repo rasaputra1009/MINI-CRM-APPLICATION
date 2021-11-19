@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Publisher;
 use App\User;
 use Cookie;
+use Exception;
 use Response;
 
 class CRMService {
@@ -93,8 +94,31 @@ class CRMService {
     }
     public function readPublisher($id)
     {   
-        $data = Publisher::where('id', '=',$id)->get();
-		return $data;
+        
+        $data=Publisher::find($id);
+        if($data===null)
+        {
+            return Response::json(['message'=>"Publisher Details Not Found"], 404);   
+        }
+        else{
+            $check=session()->all();
+            $user=$check['user'];
+            $userrole=$check['userrole'];
+            $data=Publisher::find($id);
+            if($userrole==='admin')
+            {
+                $detail=Publisher::where('id','=',$id)->get();
+                return $detail;
+            }
+            else if(($userrole==='salesrep' || $userrole==='account')&&($data['assigned_to']===$user))
+            {
+                $detail=Publisher::where('id','=',$id)->get();
+                return $detail;
+            }
+            else{
+                return Response::json(['message'=>"Access Denied"], 404);   	
+            }
+        }
     }
     public function updatepublisher($payload,$id)
     {   
@@ -105,13 +129,25 @@ class CRMService {
         $data=Publisher::find($id);
         if($userrole==='admin')
         {
-            $data->update($payload);
-            return "Updated Successfully";
+            try{
+                $data->update($payload);
+                return "Updated Successfully";
+            }
+            catch(Exception $e)
+            {
+                return Response::json(['message'=>"Access Denied"], 403);
+            }
         }
        else if(($userrole==='salesrep' || $userrole==='account')&&($data['assigned_to']===$user))
        {
+            try{
                 $data->update($payload);
                 return "Updated Successfully";
+            }
+            catch(Exception $e)
+            {
+                return Response::json(['message'=>"Access Denied"], 403);
+            }
        }
        else{
             return Response::json(['message'=>"Access Denied"], 403);
