@@ -20,9 +20,9 @@ class CreatePublishersTable extends Migration
             $table->string('email')->unique();
             $table->bigInteger('phone');
             $table->string('website');
-            $table->string('assigned_to');
+            $table->string('assignedTo');
             $table->timestamps();
-            $table->foreign('assigned_to')->references('username')->on('users')->onDelete('cascade');
+            $table->foreign('assignedTo')->references('username')->on('users')->onDelete('cascade');
         });
     }
     /**

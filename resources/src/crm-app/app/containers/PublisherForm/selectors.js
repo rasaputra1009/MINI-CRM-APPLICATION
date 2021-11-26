@@ -1,36 +1,34 @@
 import { createSelector } from 'reselect';
 import { initialState } from './slice';
 
-
 const selectFormDomain = state => state.form || initialState;
 
-const makeSelectForm = () =>
-  createSelector(selectFormDomain, substate => substate);
+const makeSelectPublisherForm = () =>
+  createSelector(selectFormDomain, state => state.publisherData);
 
 const makeSelectName = () =>
-  createSelector(selectFormDomain, state => state.name);
+  createSelector(selectFormDomain, state => state.publisherData.name);
 
 const makeSelectEmail = () =>
-  createSelector(selectFormDomain, state => state.email);
+  createSelector(selectFormDomain, state => state.publisherData.email);
 
 const makeSelectPhone = () =>
-  createSelector(selectFormDomain, state => state.phone);
+  createSelector(selectFormDomain, state => state.publisherData.phone);
 
 const makeSelectWebsite = () =>
-  createSelector(selectFormDomain, state => state.website);
+  createSelector(selectFormDomain, state => state.publisherData.website);
 
 const makeSelectError = () =>
-  createSelector(selectFormDomain, state => state.error);
+  createSelector(selectFormDomain, state => state.publisherData.error);
 
 const makeSelectAssigned = () =>
-  createSelector(selectFormDomain, state => state.assigned_to);
+  createSelector(selectFormDomain, state => state.publisherData.assignedTo);
 
 const makeSelectLoading = () =>
   createSelector(selectFormDomain, state => state.loading);
 
 const makeSelectUsers = () =>
-  createSelector(selectFormDomain, publisherListing => publisherListing.users);
-
+  createSelector(selectFormDomain, state => state.users);
 const makeSelectId = () => createSelector(selectFormDomain, state => state.id);
 
 const makeSelectValidationErrors = () =>
@@ -38,8 +36,6 @@ const makeSelectValidationErrors = () =>
     selectFormDomain,
     publisherListing => publisherListing.validationErrors,
   );
-
-export default makeSelectForm;
 export {
   selectFormDomain,
   makeSelectName,
@@ -47,10 +43,10 @@ export {
   makeSelectWebsite,
   makeSelectAssigned,
   makeSelectPhone,
-  makeSelectForm,
+  makeSelectPublisherForm,
   makeSelectId,
   makeSelectError,
-  makeSelectUsers,
   makeSelectLoading,
   makeSelectValidationErrors,
+  makeSelectUsers,
 };

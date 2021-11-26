@@ -14,7 +14,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 export const initialState = {
   id: '',
-  searchpublishers: [],
+  searchPublishers: [],
   search: '',
   users: [],
   delete: false,
@@ -42,11 +42,11 @@ const publisherListingSlice = createSlice({
       state.assigned_user = payload;
     },
     searchPublishers(state) {
-      state.loading=true;
-      state.searchpublishers = [];
+      state.loading = true;
+      state.searchPublishers = [];
     },
     searchPublishersSuccess(state, { payload }) {
-      state.searchpublishers = payload;
+      state.searchPublishers = payload;
       state.loading = false;
     },
     searchPublishersError(state) {
@@ -70,7 +70,7 @@ const publisherListingSlice = createSlice({
     },
     loadUserInfoSuccess(state, { payload }) {
       state.userInfo.user = payload.username;
-      state.userInfo.userrole = payload.userrole;
+      state.userInfo.userrole = payload.role;
     },
     loadUserInfoError(state, { payload }) {
       state.error = payload;

@@ -4,7 +4,6 @@ import { initialState } from './slice';
 const selectPublisherListingDomain = state =>
   state.publisherListing || initialState;
 
-
 const makeSelectLoading = () =>
   createSelector(
     selectPublisherListingDomain,
@@ -39,7 +38,7 @@ const makeSelectFilter = () =>
 const makeSelectSearchPublishers = () =>
   createSelector(
     selectPublisherListingDomain,
-    publisherListing => publisherListing.searchpublishers,
+    publisherListing => publisherListing.searchPublishers,
   );
 const makeSelectUsers = () =>
   createSelector(

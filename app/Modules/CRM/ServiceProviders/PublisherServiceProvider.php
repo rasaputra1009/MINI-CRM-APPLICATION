@@ -1,9 +1,9 @@
 <?php namespace Modules\CRM\ServiceProviders;
 
-use Modules\CRM\Services\CRMService;
+use Modules\CRM\Services\PublisherService;
 use Illuminate\Support\ServiceProvider;
 
-class CRMServiceProvider extends ServiceProvider {
+class PublisherServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -26,7 +26,8 @@ class CRMServiceProvider extends ServiceProvider {
 
     private function registerService()
     {
-        $this->app->singleton('crm', 'Modules\CRM\Services\CRMService');
+        $this->app->singleton(PublisherService::class, 'Modules\CRM\Services\PublisherService');
+		$this->app->singleton(UserService::class, 'Modules\CRM\Services\UserService');
     }
 
     private function registerRepository()

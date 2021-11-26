@@ -1,118 +1,63 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable react/button-has-type */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
+/* eslint-disable prefer-destructuring */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useInjectReducer, useInjectSaga } from 'redux-injectors';
-import { Link } from 'react-router-dom';
-import { makeSelectSearchPublishers, makeSelectUserRole, makeSelectUser, makeSelectLoading } from './selectors';
-import { reducer, searchPublishers, deletePublisher, loadUserInfoSuccess, loadUsers, } from './slice';
+import PublisherListTable from 'components/PublisherListTable';
+import {
+  makeSelectSearchPublishers,
+  makeSelectUserRole,
+  makeSelectUser,
+  makeSelectLoading,
+} from './selectors';
+import { deletePublisher, reducer, loadUsers } from './slice';
+
 import saga from './saga';
 import './style.scss';
 
 const stateSelector = createStructuredSelector({
-  searchpublisherslist: makeSelectSearchPublishers(),
+  searchPublishersList: makeSelectSearchPublishers(),
   userrole: makeSelectUserRole(),
   user: makeSelectUser(),
   loading: makeSelectLoading(),
 });
 
 function PublisherListing() {
-  
   const dispatch = useDispatch();
   useInjectReducer({ key: 'publisherListing', reducer });
   useInjectSaga({ key: 'publisherListing', saga });
-  const {
-    searchpublisherslist,
-    userrole,
-    user,
-    loading,
-  } = useSelector(stateSelector);
-  const getCookie = payload => {
-    payload = payload.split('; ');
-    const result = {};
-    for (const i in payload) {
-      const cur = payload[i].split('=');
-      result[cur[0]] = cur[1];
-    }
-    return result;
-  };
 
+  const { searchPublishersList, loading, user, userrole } = useSelector(
+    stateSelector,
+  );
   useEffect(() => {
-    const data = getCookie(document.cookie);
     dispatch(loadUsers());
-    dispatch(loadUserInfoSuccess(data));
-    dispatch(searchPublishers()); // load all publishers
+    // dispatch(loadUserInfoSuccess(window.userInfo));
   }, []);
 
   const removePublisher = id => {
     dispatch(deletePublisher(id));
-    setTimeout(()=>{
-      dispatch(searchPublishers());
-    },500);
   };
 
+  const props = {
+    searchPublishersList,
+    user,
+    role: userrole,
+  };
   return (
-    <div className="section">
+    <div className="publishersList">
       {loading ? (
         <span className="loading">Loading...</span>
+      ) : searchPublishersList.length === 0 ? (
+        <span className="loading">No Data Found</span>
       ) : (
-        (searchpublisherslist.length===0 ?<span className="loading">No Data Found</span>:
-        <table>
-          <thead className="thead">
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Website</th>
-              <th>Assigned_to</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody className="tbody">
-            {searchpublisherslist.map(item => (
-              <tr>
-                <Link
-                  to={{
-                    pathname: `/crm/details/${item.id}`,
-                  }}
-                  className="name"
-                >
-                  <td>{item.name}</td>
-                </Link>
-                <td className="email">{item.email}</td>
-                <td>{item.phone}</td>
-                <td>{item.website}</td>
-                <td>{item.assigned_to}</td>
-                <Link
-                  to={{
-                    pathname: `/crm/edit/${item.id}`,
-                  }}
-                >
-                  <td>
-                    <button
-                      className="edit"
-                      disabled={
-                        userrole === 'salesrep' && !(item.assigned_to === user)
-                      }
-                    >
-                     Edit
-                    </button>
-                  </td>
-                </Link>
-                <td>
-                  <button
-                    onClick={() => removePublisher(item.id)}
-                    disabled={!(userrole === 'admin')}
-                    className="delete"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ))}
+        <PublisherListTable {...props} removePublisher={removePublisher} />
+      )}
     </div>
   );
 }

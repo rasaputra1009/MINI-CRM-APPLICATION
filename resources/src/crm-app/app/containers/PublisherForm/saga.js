@@ -2,9 +2,13 @@
 /* eslint-disable no-unused-vars */
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import request from 'utils/request';
-import axios from 'axios';
 import { push } from 'react-router-redux';
-import { makeSelectForm, makeSelectName, makeSelectId } from './selectors';
+import api from 'utils/api';
+import {
+  makeSelectPublisherForm,
+  makeSelectName,
+  makeSelectId,
+} from './selectors';
 import {
   dataPost,
   dataPosted,
@@ -15,41 +19,44 @@ import {
   editData,
   editDataSuccess,
   updateState,
+  updateValidationErrors,
   loadUsers,
   loadUsersSuccess,
   loadUsersError,
-  updateValidationErrors,
 } from './slice';
-/***GET ALL USERS ***/
+
+/** GET ALL USERS */
 export function* getAllUsers() {
-  const requestURL = '/url/users';
   try {
-    const [users] = yield call(request, requestURL);
-    yield put(loadUsersSuccess(users.Users));
+    const { users } = yield call(request, api.readUsers);
+    yield put(loadUsersSuccess(users));
   } catch (err) {
     yield put(loadUsersError(err));
   }
 }
 
-/***CREATE A PUBLISHER ***/
+/** *CREATE A PUBLISHER ** */
 export function* postData() {
-  const form = yield select(makeSelectForm());
+  const form = yield select(makeSelectPublisherForm());
   try {
-    yield call(axios.post, '/api/crm/publisher', form);
-    yield put(dataPosted({ post: true }));
+    yield call(request, api.createPublisher, form, 'post');
+    // yield put(dataPosted({ post: true }));
     yield put(push('/crm/home'));
   } catch (error) {
-    yield put(updateValidationErrors(error.response.data.errors));
+    if (error.response.status === 403) {
+      yield put(push('/crm/notfound'));
+    } else {
+      yield put(updateValidationErrors(error.response.data.errors));
+    }
     yield put(dataPostError(error));
   }
 }
-/***GET PUBLISHERS DATA TO EDIT OR TO DISPLAY ***/
+/** *GET PUBLISHERS DATA TO EDIT OR TO DISPLAY ** */
 export function* getPublisherData() {
   const id = yield select(makeSelectId());
-  const requestURL = `/api/crm/publisher/${id}`;
   try {
-    const publisher = yield call(request, requestURL);
-    yield put(updateState(publisher[0]));
+    const { publishersData } = yield call(request, api.publisherInfo(id));
+    yield put(updateState(publishersData));
     yield put(getDataSuccess());
   } catch (err) {
     yield put(push('/crm/notfound'));
@@ -57,20 +64,18 @@ export function* getPublisherData() {
   }
 }
 
-/*** UPDATE PUBLISHER DATA ***/
+/** * UPDATE PUBLISHER DATA ** */
 export function* updateData() {
   const id = yield select(makeSelectId());
-  const form = yield select(makeSelectForm());
+  const form = yield select(makeSelectPublisherForm());
   try {
-    yield call(axios.put, `/api/crm/publisher/${id}`, form);
+    yield call(request, api.publisherInfo(id), form, 'put');
     yield put(editDataSuccess({ post: true }));
     yield put(push('/crm/home'));
   } catch (error) {
-    if(error.response.status===403) 
-    {
-      yield put(push('/crm/notfound')); 
-    }
-    else{
+    if (error.response.status === 403) {
+      yield put(push('/crm/notfound'));
+    } else {
       yield put(updateValidationErrors(error.response.data.errors));
     }
   }
@@ -88,7 +93,6 @@ export function* getPublisher() {
 export function* editPublisher() {
   yield takeLatest(editData.type, updateData);
 }
-
 
 export default function* formSaga() {
   yield all([getUsers(), postPublisher(), getPublisher(), editPublisher()]);

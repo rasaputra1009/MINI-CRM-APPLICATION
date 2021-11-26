@@ -18,16 +18,22 @@ import {
   makeSelectSearch,
   makeSelectSearchPublishers,
   makeSelectUsers,
+  makeSelectUserRole,
 } from 'containers/PublisherListing/selectors';
 import { useDispatch, useSelector } from 'react-redux';
+import Input from '../../../../commons/app/components/Input';
+import Select from '../../../../commons/app/components/Select';
 const stateSelector = createStructuredSelector({
   search: makeSelectSearch(),
   users: makeSelectUsers(),
+  role: makeSelectUserRole(),
 });
 
 function PublisherListSearch() {
+  const ACCOUNTMANAGER = 'account';
+  const OPTIONS = ['name', 'email', 'phone', 'website'];
   const dispatch = useDispatch();
-  const {search, users } = useSelector(stateSelector);
+  const { search, users, role } = useSelector(stateSelector);
   const selectAttribute = e => {
     dispatch(updateFilter(e.target.value));
   };
@@ -39,31 +45,37 @@ function PublisherListSearch() {
     dispatch(updateAssigned(e.target.value));
     dispatch(searchPublishers());
   };
+  const applyFilter = {
+    label: null,
+    type: 'text',
+    placeholder: 'Search Here',
+    disabled: false,
+    value: null,
+    change: changeSearch,
+    error: '',
+  };
+
   return (
     <div className="publisherSearch">
-      <select
-        name="attribute"
-        id="attribute"
-        onChange={selectAttribute}
-        className="dropdown-select"
-      >
-        <option value="name">Search By</option>
-        <option value="name">Name</option>
-        <option value="email">Email Id</option>
-        <option value="phone">Phone</option>
-        <option value="website">Website</option>
-      </select>
-      <input type="search" placeholder="Search Here" onChange={changeSearch} />
-      <select
-        name="attribute"
-        className="dropdown-assigned"
-        onChange={selectUser}
-      >
-        <option>Select User</option>
-        {users.map(user => (
-          <option value={user}>{user}</option>
-        ))}
-      </select>
+      <Select
+        label={null}
+        list={OPTIONS}
+        filterBy="Search By"
+        error={null}
+        change={selectAttribute}
+        disabled={false}
+        className="dropdownSelect"
+      />
+      <Input {...applyFilter} className="searchFilter" />
+      <Select
+        label={null}
+        list={users}
+        filterBy="Select User"
+        error={null}
+        change={selectUser}
+        disabled={false}
+        className="dropdownAssigned"
+      />
     </div>
   );
 }

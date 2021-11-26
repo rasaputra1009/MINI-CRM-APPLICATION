@@ -1,11 +1,14 @@
+/* eslint-disable no-redeclare */
 import { createSlice } from '@reduxjs/toolkit';
 export const initialState = {
   id: '',
-  name: '',
-  email: '',
-  phone: '',
-  website: '',
-  assigned_to: '',
+  publisherData: {
+    name: '',
+    email: '',
+    phone: '',
+    website: '',
+    assignedTo: '',
+  },
   post: false,
   edit: false,
   error: false,
@@ -16,34 +19,19 @@ export const initialState = {
     email: '',
     phone: '',
     website: '',
-    assigned_to: '',
+    assignedTo: '',
   },
 };
 const formSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    updateName: (state, { payload }) => {
-      state.name = payload;
-    },
-    updateEmail: (state, { payload }) => {
-      state.email = payload;
-    },
-    updatePhone: (state, { payload }) => {
-      state.phone = payload;
-    },
-    updateWebsite: (state, { payload }) => {
-      state.website = payload;
-    },
-    updateAssignedTo: (state, { payload }) => {
-      state.assigned_to = payload;
+    updatePublisherDataInfo: (state, { payload }) => {
+      const { key, data } = payload;
+      state.publisherData[key] = data;
     },
     updateState: (state, { payload }) => {
-      state.name = payload.name;
-      state.email = payload.email;
-      state.phone = payload.phone;
-      state.website = payload.website;
-      state.assigned_to = payload.assigned_to;
+      state.publisherData = payload;
     },
     updateValidationErrors: (state, { payload }) => {
       state.validationErrors = payload;
@@ -83,24 +71,23 @@ const formSlice = createSlice({
       state.edit = false;
     },
     loadUsers(state) {
+      state.loading = true;
       state.error = false;
       state.users = [];
     },
     loadUsersSuccess(state, { payload }) {
       state.users = payload;
+      state.loading = false;
     },
     loadUsersError(state) {
+      state.loading = false;
       state.error = true;
     },
   },
 });
 
 export const {
-  updateEmail,
-  updateName,
-  updatePhone,
-  updateWebsite,
-  updateAssignedTo,
+  updatePublisherDataInfo,
   updateState,
   dataPost,
   dataPosted,
@@ -110,10 +97,10 @@ export const {
   getDataError,
   editData,
   editDataSuccess,
+  updateValidationErrors,
   loadUsers,
   loadUsersSuccess,
   loadUsersError,
-  updateValidationErrors,
 } = formSlice.actions;
 
 export const { reducer } = formSlice;

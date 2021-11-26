@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('userrole');
             $table->timestamps();
+            $table->foreign('userrole')->references('role')->on('userroles')->onDelete('cascade');
         });
     }
 
