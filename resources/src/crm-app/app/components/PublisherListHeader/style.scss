@@ -6,35 +6,33 @@
     justify-content: space-between;
     padding: $padding;
     .title{
-        font-size:2em;
-        color:orange;
-        font-weight:$fontWeight;
+        font-size:$font-size;
+        font-weight:$font-weight;
     }
     .publisherHeaderRight{
         @include flex(row);
-        justify-content: space-between;
+        align-items:$align-items-baseline;
+        margin-right: $margin-right;
         .loginUser
         {
-            font-size:1.5em;
-            font-weight:$fontWeight;
-            color: orange;
-            margin-right: $marginRight;
+            font-size:$font-size;
+            font-weight:$font-weight;
+            margin-right: $margin-right;
         }
-        .createBtn
+        .create
         {
-            color: white;
-            margin-right:$marginRight;
-            padding:10px;
-            background-color:blue;
-            border-radius: $borderRadius;
+            text-decoration: $text-decoration;
         }
-        .logout
+        .buttonTag
         {
-            color: white;
-            margin-right:$marginRight;
-            padding:10px;
-            background-color:orange;
-            border-radius: $borderRadius;
+            margin-right: $margin-right;
+            .btn
+            {
+                color: $secondary-color;
+                background-color:$button-backgroundcolor;
+            }
         }
+        
+
     }
-}
+}   

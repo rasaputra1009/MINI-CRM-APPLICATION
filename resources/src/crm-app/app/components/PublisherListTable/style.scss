@@ -1,0 +1,56 @@
+@import "../../sass/variables.scss";
+.publisherListTable {
+  width: $table-width;
+  margin-top: $margin-top;
+  margin-left: $margin-left;
+  margin-right: $margin-right;
+  .publisherListColumn {
+    font-size: 1.4em;
+    font-weight: $font-weight;
+    background-color: $primary-backgroud-color;
+  }
+  th,tr {
+    border: 2px solid $border-color;
+    border-collapse: $border-collapse;
+    padding: $padding;
+    text-align:$text-align;
+  }
+  td {
+    padding: $padding;
+    text-align: center;
+  }
+  .publisherListRows
+  {
+      font-size:$font-size;
+      align-items:$align-items-center;
+      background-color:$secondary-backgroud-color;
+  }
+  .name {
+    color:$third-color;
+    text-decoration:$text-decoration;
+  }
+  .disable {
+    background-color:$secondary-backgroud-color;
+  }
+  .editLink
+  {
+    text-decoration: $text-decoration;
+  }
+  .edit {
+    color:$secondary-color;
+    font-weight: $font-weight;
+    border-radius: $border-radius;
+    background-color:$button-backgroundcolor;
+  }
+  [disabled] {
+    opacity: 0.25;
+    color:$primary-color;
+    background-color: $secondary-backgroud-color;
+  }
+  .delete {
+    color: $secondary-color;
+    font-weight: $font-weight;
+    border-radius: $border-radius;
+    background-color:$third-backgroud-color;
+  }
+}

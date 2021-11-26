@@ -9,10 +9,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useInjectReducer, useInjectSaga } from 'redux-injectors';
-import Axios from 'axios';
-import { Redirect } from 'react-router';
 import { makeSelectLogin, makeSelectPost } from './selectors';
 import { updateUserName, updatePassword, reducer, loggingIn } from './slice';
+import Input from '../../../../commons/app/components/Input';
+import Button from '../../../../commons/app/components/Button';
 import saga from './saga';
 import './style.scss';
 
@@ -36,27 +36,39 @@ function Login() {
   const changePassword = e => {
     dispatch(updatePassword(e.target.value));
   };
+
+  const userLogin = e => {
+    e.preventDefault();
+    dispatch(loggingIn());
+  };
+  const userDetails = [
+    {
+      label: 'Username',
+      type: 'text',
+      placeholder: 'Enter UserName',
+      disabled: false,
+      value: null,
+      change: changeUserName,
+      error: '',
+    },
+    {
+      label: 'Password',
+      type: 'password',
+      placeholder: 'Enter PassWord',
+      disabled: false,
+      value: null,
+      change: changePassword,
+      error: '',
+    },
+  ];
   return (
     <div className="login-form">
-      <form className="form" method="post" action="/crm/login">
+      <form className="form" onSubmit={userLogin}>
         <h1 className="head">Login Here</h1>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          placeholder="Enter Username"
-          onChange={changeUserName}
-          required
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          name="password"
-          type="password"
-          placeholder="Enter Password"
-          onChange={changePassword}
-          required
-        />
-        <input type="submit" className="btn" />
+        {userDetails.map(item => (
+          <Input key={item.label} {...item} className="input" />
+        ))}
+        <Button value="Submit" disabled={false} className="btn" />
       </form>
     </div>
   );

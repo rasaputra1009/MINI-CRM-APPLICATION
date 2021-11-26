@@ -1,0 +1,24 @@
+@import '../../../../crm-app/app/sass/variables.scss';
+.selectTag{
+    .label
+    {
+        font-size: $font-size;
+        font-weight: $font-weight;
+    }
+    .errorMsg
+    {
+        @include flex(column);
+        justify-content: flex-start;
+        color:$error-color;
+    }
+    .select{
+        font-size: $font-size;
+        margin-left:$margin-left;
+        margin-right: $margin-right;
+        border-radius: $border-radius;
+        height: $drop-down-height;
+        color: $primary-color;
+        outline: $outline;
+        background-color:$drop-down-background-color;
+    } 
+}

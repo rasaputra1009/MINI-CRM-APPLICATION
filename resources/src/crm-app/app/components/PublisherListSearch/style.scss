@@ -2,32 +2,14 @@
 .publisherSearch
 {
     @include flex(row);
-    justify-content: space-between;
-     input{
-        width:$btnWidth;
-        height: $inpHeight;
-        margin-right: $marginRight;
-        border-radius: $borderRadius;
+    justify-content:center;
+    // align-items: center;
+     .searchFilter{
+        width:$input-width;
+        height: $input-height;
+        margin-right: $margin-right;
+        margin-left: $margin-left;
+        border-radius: $border-radius;
         outline: $outline;
      }
-    .dropdown-select
-    {
-        width: $dropDownWidth;
-        margin-left:$marginExtraTop;
-        border-radius: $borderRadius;
-        height: $inpHeight;
-        color: $textColor;
-        outline: $outline;
-        background-color:lightyellow;
-    }
-    .dropdown-assigned
-    {
-        width:$dropDownWidth;
-        margin-right:$marginExtraTop;
-        border-radius: $borderRadius;
-        height: $inpHeight;
-        color: $textColor;
-        outline: $outline;
-        background-color:lightyellow;
-    }
 }

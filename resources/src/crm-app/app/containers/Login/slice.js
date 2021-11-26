@@ -13,8 +13,10 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 export const initialState = {
-  username: '',
-  password: '',
+  loginCredentials: {
+    username: '',
+    password: '',
+  },
   post: false,
   error: false,
 };
@@ -25,21 +27,24 @@ const loginSlice = createSlice({
   reducers: {
     // eslint-disable-next-line no-unused-vars
     updateUserName: (state, { payload }) => {
-      state.username = payload;
+      state.loginCredentials.username = payload;
     },
     updatePassword: (state, { payload }) => {
-      state.password = payload;
+      state.loginCredentials.password = payload;
     },
     loggingIn(state) {
       state.post = true;
       state.error = false;
     },
+    loggingOut(state) {
+      state.post = false;
+    },
     loginSuccess(state, { payload }) {
       state.post = payload;
     },
     loginFailed(state) {
-      state.username = '';
-      state.password = '';
+      state.loginCredentials.username = '';
+      state.loginCredentials.password = '';
       state.error = true;
       state.post = false;
     },
@@ -50,6 +55,7 @@ export const {
   updateUserName,
   updatePassword,
   loggingIn,
+  loggingOut,
   loginSuccess,
   loginFailed,
 } = loginSlice.actions;

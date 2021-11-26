@@ -25,8 +25,13 @@ function checkStatus(response) {
 //     .then(extractData);
 // }
 
-export default function request(url, options) {
-  return axios(url, options)
+export default function request(url, data, method = 'get', ...rest) {
+  return axios({
+    method,
+    url,
+    data,
+    ...rest,
+  })
     .then(checkStatus)
     .then(extractData);
 }

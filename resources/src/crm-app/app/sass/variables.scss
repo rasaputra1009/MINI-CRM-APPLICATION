@@ -1,30 +1,67 @@
 @mixin flex($direction) {
     display: flex;
-    flex-direction:$direction;
+    flex-direction: $direction;
 }
-$inpWidth:80%;
-$inpHeight:40px;
-$height:40px;
-$fontSize:1.4em;
-$margin:auto;
-$fontWeight:bold;
+
+//flex Properties
+$justify-content:center;
+//General
+$height: 40px;
+//Input
+$input-width:75vw;
+$input-height:40px;
+//Font
+$font-size:1.4em;
+$font-size-extra-large:2em;
+$font-weight:bold;
+//margin
+$margin-bottom:20px;
+$margin-top:20px;
+$margin-left:20px;
+$margin-right:20px;
+$margin-extratop:120px;
+//padding
+$padding-small:10px;
+$padding: 15px;
+$padding-top:15px;
+$padding-bottom:15px;
+$padding-left:15px;
+$padding-right:15px;
+//border
+$border-collapse: collapse;
+$border-radius: 5px;
+$border-color:#dddddd;
+//Table
+$table-width:95vw;
+//Button
+$button-width: 30px;
+$button-height: 35px;
+$button-fontsize: 1.4em;
+$button-text-color:white;
+$button-backgroundcolor: blue;
+//Align Items
+$text-align:center;
+$align-items-center:center;
+$align-items-baseline:baseline;
+//Text Colors
+$primary-color:black;
+$secondary-color:white;
+$third-color:blue;
+//background colors
+$primary-backgroud-color:aliceblue;
+$secondary-backgroud-color:white;
+$third-backgroud-color:red;
+$fourth-backgroud-color:lightblue;
+//label
+$label-color:black;
+//error
+$error-color: red;
+//Select
+$drop-down-width: 30px;
+$drop-down-height:35px;
+$drop-down-fontsize:1.2em;
+$drop-down-background-color:aliceblue;
+//Link
 $outline:none;
-$borderColor:black;
-$borderCollapse:collapse;
-$justifyContent:center;
-$labelColor:black;
-$borderRadius:5px;
-$marginBtm:20px;
-$marginTop:20px;
-$marginLeft:20px;
-$marginRight:20px;
-$marginExtraTop:120px;
-$bgColor:lightblue;
-$alignItems:center;
-$btnWidth:20%;
-$btnHeight:35px;
-$btnFontSize:1.4em;
-$textColor:black;
-$btnBgColor:lightblue;
-$dropDownWidth:20%;
-$padding:15px;
+$text-decoration:none;
+

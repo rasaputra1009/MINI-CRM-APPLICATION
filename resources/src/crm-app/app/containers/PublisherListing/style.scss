@@ -1,65 +1,11 @@
 @import '../../sass/variables.scss';
-.section{
-    table{
-        width: 98%;
-        margin-top: $marginTop;
-        margin-left: $marginLeft;
-        margin-right: $marginRight;
-    }
-    table,th,tr{
-        border:2px solid #dddddd;
-        border-collapse:$borderCollapse;
-        padding:$padding;
-        text-align: center;
-      }
-      td{
-          padding:$padding;
-          text-align: center;
-      }
-      .thead
-      {
-        font-size: 1.4em;
-        font-weight: $fontWeight;
-        background-color: $bgColor;
-      }
-      .tbody
-      {
-          font-size:1.2em;
-          align-items: center;
-          background-color:white ;
-      }
+.publishersList{
       .loading
       {
           @include flex(row);
-          margin-top: $marginTop;
-          font-size: 1.5em;
-          font-weight: $fontWeight;
-          justify-content: $justifyContent;
-      }
-      .name
-      {
-        color: blue;
-        text-decoration:none;
-      }
-      .disable
-      {
-        background-color:white;
-      }
-       .edit
-      {
-          color:white;
-          border-radius: $borderRadius;
-          background-color: yellowgreen;
-      }
-      [disabled] {
-        opacity: 0.25;
-        color: #000;
-        background-color: white;
-      }
-      .delete
-      {
-          color:white;
-          border-radius: $borderRadius;
-          background-color:orangered;
+          margin-top: $margin-top;
+          font-size:$font-size;
+          font-weight: $font-weight;
+          justify-content: $justify-content;
       }
 }

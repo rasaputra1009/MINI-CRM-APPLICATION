@@ -1,0 +1,15 @@
+@import '../../sass/variables.scss';
+.publisherForm
+{
+    @include flex(column);
+    .publisherFormEdit
+    {
+        @include flex(column);
+        align-items:$align-items-center;
+        padding: $padding;
+    }
+    .publisherFormEditButton
+    {
+       margin-top: $margin-top;
+    }
+}

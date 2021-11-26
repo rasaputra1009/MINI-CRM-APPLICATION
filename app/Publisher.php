@@ -15,6 +15,6 @@ class Publisher extends Model
         'phone',
         'address',
         'website',
-        'assigned_to'
+        'assignedTo'
     ];
 }

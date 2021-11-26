@@ -6,6 +6,12 @@
 </head>
 <body>
 <div id='app'></div>
+{{-- <script>
+    window.userInfo={};
+    userInfo.username='{{$user}}',
+    userInfo.userrole='{{$userrole}}'
+    Object.freeze(userInfo);
+</script> --}}
 <script src="{{normalize_chunks('/build/crm-app/vendors~main.chunk.js')}}"></script>
 <script src="{{normalize_chunks('/build/crm-app/main.js')}}"></script>
 </body>

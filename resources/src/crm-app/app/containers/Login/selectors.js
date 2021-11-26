@@ -16,9 +16,11 @@ const selectLoginDomain = state => state.login || initialState;
  */
 
 const makeSelectLogin = () =>
-  createSelector(selectLoginDomain, substate => substate);
+  createSelector(selectLoginDomain, state => state.loginCredentials);
+
 const makeSelectUser = () =>
   createSelector(selectLoginDomain, state => state.username);
+
 const makeSelectPost = () =>
   createSelector(selectLoginDomain, state => state.post);
 

@@ -1,0 +1,14 @@
+@import '../../../../crm-app/app/sass/variables.scss';
+.buttonTag{
+    @include flex(row);
+    justify-content:$justify-content;
+    .btn
+    {
+        margin-top: $margin-top;
+        border-radius: $border-radius;
+        padding: $padding-small;
+        font-weight: $font-weight;
+        color: $secondary-color;
+        background-color:$button-backgroundcolor ;
+    }
+}

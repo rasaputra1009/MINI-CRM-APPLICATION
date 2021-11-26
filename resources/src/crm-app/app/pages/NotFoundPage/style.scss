@@ -4,20 +4,20 @@
         .notfoundtitle
         {
             @include flex(row);
-            justify-content:$justifyContent;
-            font-size:2em;
-            font-weight: $fontWeight;
-            color:gray;
+            justify-content:$justify-content;
+            font-size:$font-size-extra-large;
+            font-weight: $font-weight;
+            color:$third-color;
         }
         .btn
         {
-            text-align:$alignItems;
-            font-size: $fontSize;
-            font-weight: $fontWeight;
-            text-decoration: none;
-            margin-top: $marginTop;
+            text-align:$align-items-center;
+            font-size: $font-size;
+            font-weight: $font-weight;
+            text-decoration:$text-decoration;
+            margin-top: $margin-top;
             padding: $padding;
-            border-radius: $borderRadius;
+            border-radius: $border-radius;
         }
 
 }

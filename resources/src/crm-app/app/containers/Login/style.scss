@@ -1,48 +1,19 @@
-@import '../../sass/variables.scss';
-.login-form
-{
+@import "../../sass/variables.scss";
+.login-form {
     @include flex(row);
     justify-content: center;
-    .form
-    {
+    .form {
         @include flex(column);
-        justify-content: $justifyContent;
-        border: 2px solid $borderColor;
-        width: 50%;
-        background-color:#757575;
-        margin-top:$marginExtraTop;
-        border-radius: $borderRadius;
-        .head
-        {
-            margin-top: $marginTop;
-            margin-bottom: $marginBtm;
-            font-size: 2em;
-            margin-left: $marginLeft;
-            color:white;
-        }
-        input{
-            height: $height;
-            width: 50%;
-            border-radius: $borderRadius;
-            margin-bottom:$marginBtm;
-            outline:$outline;
-            margin-left: $marginLeft;
-        }
-        label
-        {
-            color:$labelColor;
-            font-weight: $fontWeight;
-            font-size: $fontSize;
-            color: white;
-            margin-left: $marginLeft;
-        }
-        .btn{
-            text-align:center;
-            height: $height;
-            width: 30%;
-            font-size:$fontSize;
-            margin-left: $marginLeft;
-            background-color:yellowgreen;
+        border: 2px solid $border-color;
+        background-color: #757575;
+        margin-top: $margin-extratop;
+        border-radius: $border-radius;
+        .head {
+            margin-top: $margin-top;
+            margin-bottom: $margin-bottom;
+            font-size: $font-size-extra-large;
+            margin-left: $margin-left;
+            color:$secondary-color;
         }
     }
 }

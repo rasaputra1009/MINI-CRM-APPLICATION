@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable import/no-unresolved */
 /**
  *
@@ -15,6 +16,5 @@ function PublisherList() {
     </div>
   );
 }
-
 
 export default PublisherList;
